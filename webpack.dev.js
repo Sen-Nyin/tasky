@@ -18,4 +18,13 @@ module.exports = merge(common, {
       },
     ],
   },
+  devServer: {
+    open: true,
+    hot: true,
+    compress: true,
+    historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, 'src'),
+    },
+  },
 });
