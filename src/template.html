@@ -13,5 +13,61 @@
       type="image/x-icon"
     />
   </head>
-  <body></body>
+  <body
+    class="h-screen grid grid-cols-[max-content_1fr] grid-rows-[max-content_1fr] bg-gray-50"
+  >
+    <header
+      class="px-4 py-2 col-span-2 border-b bg-blue-500 text-gray-50 flex gap-4 justify-between shadow-md"
+    >
+      <button id="toggle-sidebar" class="px-2">
+        <span class="visually-hidden">Menu</span>
+        <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
+          <use href="./assets/sprite.svg#icon-menu"></use>
+        </svg>
+      </button>
+      <h1 class="flex-1 font-medium">Tasky</h1>
+      <nav id="navbar">
+        <ul class="flex gap-4">
+          <li>
+            <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
+              <use href="./assets/sprite.svg#icon-add"></use>
+            </svg>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <nav
+      id="sidebar"
+      class="pl-4 sm:pl-8 md:pl-12 pr-4 py-8 bg-gray-100 col-start-1 row-start-2 row-span-2 shadow-sm md:w-80"
+    >
+      <ul class="flex flex-col gap-1 text-sm font-light">
+        <li class="sidebar-item">
+          <svg class="sidebar-svg">
+            <use href="./assets/sprite.svg#icon-today"></use>
+          </svg>
+          <span class="hidden sm:block">Due Today</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-svg">
+            <use href="./assets/sprite.svg#icon-date"></use>
+          </svg>
+          <span class="hidden sm:block">Upcoming</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-svg">
+            <use href="./assets/sprite.svg#icon-project"></use>
+          </svg>
+          <span class="hidden sm:block">Projects</span>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="flex-1 px-2 col-start-2 py-8 flex justify-center">
+      <div class="container mx-auto max-w-3xl">
+        <h2 class="font-bold border-b mb-4">Today</h2>
+        <div class="container" id="todos">items</div>
+      </div>
+    </main>
+  </body>
 </html>

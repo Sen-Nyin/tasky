@@ -4,4 +4,16 @@
 
 /* #################### [CUSTOM STYLES] ######################## */
 
+.visually-hidden {
+  @apply whitespace-nowrap absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden border-none;
+  clip: rect(0, 0, 0, 0);
+}
+
+.sidebar-item {
+  @apply flex gap-2 items-center p-2 rounded-md hover:bg-gray-200 duration-300;
+}
+.sidebar-svg {
+  @apply w-5 h-5;
+}
+
 /* ######################### [END] ############################# */
