@@ -22,7 +22,13 @@
       <!-- MAIN NAV -->
 
       <div class="flex justify-between">
-        <button id="toggle-sidebar" class="px-2">
+        <button
+          aria-controls="subnav"
+          aria-expanded="false"
+          id="toggle-subnav"
+          class="px-2"
+          data-label="subnavtoggle"
+        >
           <span class="visually-hidden">Menu</span>
           <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
             <use href="./assets/sprite.svg#icon-menu"></use>
@@ -30,9 +36,18 @@
         </button>
         <h1 class="flex-1 font-medium">Tasky</h1>
         <nav id="navbar">
-          <ul class="flex gap-4">
+          <ul
+            aria-label="primary navigation"
+            role="list"
+            class="flex gap-4"
+            data-label="primary-nav"
+          >
             <li>
-              <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
+              <svg
+                aria-label="add task button"
+                class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200"
+                data-label="addtaskbtn"
+              >
                 <use href="./assets/sprite.svg#icon-add"></use>
               </svg>
             </li>
@@ -46,21 +61,26 @@
         id="subnav"
         class="p-1 bg-gray-100 shadow-sm rounded-lg text-gray-700"
       >
-        <ul class="flex text-sm font-light justify-center lg:justify-start">
+        <ul
+          aria-label="sub navigation"
+          role="list"
+          class="flex text-sm font-light justify-center lg:justify-start"
+          data-label="sub-nav"
+        >
           <li class="sidebar-item">
-            <svg class="sidebar-svg">
+            <svg class="sidebar-svg" data-label="todayviewbtn">
               <use href="./assets/sprite.svg#icon-today"></use>
             </svg>
             <span>Due Today</span>
           </li>
           <li class="sidebar-item">
-            <svg class="sidebar-svg">
+            <svg class="sidebar-svg" data-label="upcomingviewbtn">
               <use href="./assets/sprite.svg#icon-date"></use>
             </svg>
             <span>Upcoming</span>
           </li>
           <li class="sidebar-item">
-            <svg class="sidebar-svg">
+            <svg class="sidebar-svg" data-label="projectbtn">
               <use href="./assets/sprite.svg#icon-project"></use>
             </svg>
             <span>Projects</span>
@@ -75,7 +95,7 @@
       <div class="container mx-auto max-w-6xl">
         <h2 class="font-bold border-b mb-4">Today</h2>
         <div class="container" id="todos">
-          <ul>
+          <ul aria-label="tasklist" role="list">
             <li>Task</li>
           </ul>
         </div>
