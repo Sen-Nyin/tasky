@@ -10,7 +10,7 @@
 }
 
 .sidebar-item {
-  @apply flex gap-2 items-center p-2 rounded-md hover:bg-gray-200 duration-300;
+  @apply flex gap-2 items-center p-3 rounded-md hover:bg-gray-200 hover:cursor-pointer duration-300;
 }
 .sidebar-svg {
   @apply w-5 h-5;
