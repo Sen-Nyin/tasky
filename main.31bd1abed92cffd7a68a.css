@@ -682,10 +682,6 @@ video {
 .bg-zinc-800\/50 {
   background-color: rgba(39, 39, 42, 0.5);
 }
-.bg-sky-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(56, 189, 248, var(--tw-bg-opacity));
-}
 .bg-red-400 {
   --tw-bg-opacity: 1;
   background-color: rgba(248, 113, 113, var(--tw-bg-opacity));
