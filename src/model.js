@@ -7,7 +7,9 @@ export default class Model {
     this.tasks = [];
     this.projects = [];
   }
-  addTask() {}
+  addTask() {
+    // this.tasks.push();
+  }
   editTask() {}
   deleteTask() {}
   completeTask() {}

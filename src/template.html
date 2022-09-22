@@ -17,87 +17,93 @@
     <!-- HEADER -->
 
     <header
-      class="p-4 border-b bg-blue-500 text-gray-50 flex flex-col gap-4 shadow-lg"
+      class="flex justify-between items-center p-4 border-b bg-blue-500 text-gray-50 gap-4 shadow-lg"
     >
-      <!-- MAIN NAV -->
+      <!-- NAV TOGGLE -->
 
-      <div class="flex justify-between">
-        <button
-          aria-controls="subnav"
-          aria-expanded="false"
-          id="toggle-subnav"
-          class="px-2"
-          data-label="subnavtoggle"
+      <!-- HEADING -->
+
+      <h1 class="flex-1 font-medium">Tasky</h1>
+
+      <!-- ADD TASK BUTTON -->
+
+      <button
+        data-label="addTask"
+        class="flex items-center gap-1 py-1 px-2 border text-gray-50 hover:bg-gray-50 hover:text-gray-600 text-xs font-bold uppercase rounded-full duration-200"
+      >
+        <svg
+          aria-label="add task button"
+          class="fill-current w-4 h-4 hover:scale-125 duration-200"
+          data-label="addtaskbtn"
         >
-          <span class="visually-hidden">Menu</span>
-          <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
-            <use href="./assets/sprite.svg#icon-menu"></use>
-          </svg>
-        </button>
-        <h1 class="flex-1 font-medium">Tasky</h1>
-        <nav id="navbar">
-          <ul
-            aria-label="primary navigation"
-            role="list"
-            class="flex gap-4"
-            data-label="primary-nav"
-          >
-            <li>
-              <svg
-                aria-label="add task button"
-                class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200"
-                data-label="addtaskbtn"
-              >
-                <use href="./assets/sprite.svg#icon-add"></use>
-              </svg>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          <use href="./assets/sprite.svg#icon-add"></use>
+        </svg>
+        <span>Add Task</span>
+      </button>
+      <button
+        aria-controls="navbar"
+        aria-expanded="false"
+        id="toggle-subnav"
+        class="px-2"
+        data-label="subnavtoggle"
+      >
+        <span class="visually-hidden">Menu</span>
+        <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
+          <use href="./assets/sprite.svg#icon-menu"></use>
+        </svg>
+      </button>
+    </header>
 
-      <!-- SUB NAV -->
+    <!-- MAIN -->
+
+    <main class="flex relative overflow-hidden">
+      <!-- NAVIGATION -->
 
       <nav
-        id="subnav"
-        class="p-1 bg-gray-100 shadow-sm rounded-lg text-gray-700"
+        id="navbar"
+        class="absolute overflow-hidden bg-gray-100 shadow-sm text-gray-700 h-full w-72 px-6 py-6 nav-hidden duration-500 lg:static lg:translate-x-0"
       >
         <ul
-          aria-label="sub navigation"
+          aria-label="navigation"
           role="list"
-          class="flex text-sm font-light justify-center lg:justify-start"
+          class="flex flex-col gap-4 text-sm font-light justify-center lg:justify-start"
           data-label="sub-nav"
         >
           <li class="sidebar-item">
             <svg class="sidebar-svg" data-label="todayviewbtn">
               <use href="./assets/sprite.svg#icon-today"></use>
             </svg>
-            <span>Due Today</span>
+            <p>Due Today</p>
           </li>
           <li class="sidebar-item">
             <svg class="sidebar-svg" data-label="upcomingviewbtn">
               <use href="./assets/sprite.svg#icon-date"></use>
             </svg>
-            <span>Upcoming</span>
+            <p>Upcoming</p>
           </li>
           <li class="sidebar-item">
             <svg class="sidebar-svg" data-label="projectbtn">
               <use href="./assets/sprite.svg#icon-project"></use>
             </svg>
-            <span>Projects</span>
+            <p>Projects</p>
           </li>
         </ul>
       </nav>
-    </header>
 
-    <!-- MAIN -->
+      <!-- TASKS CONTAINER -->
 
-    <main class="px-8 py-8 flex justify-center">
-      <div class="container mx-auto max-w-6xl">
-        <h2 class="font-bold border-b mb-4">Today</h2>
-        <div class="container" id="todos">
-          <ul aria-label="tasklist" role="list">
-            <li>Task</li>
+      <div
+        class="container flex flex-col py-6 px-6 items-center mx-auto max-w-6xl"
+      >
+        <h2 class="font-bold border-b border-gray-400 w-full">Tasks</h2>
+        <div class="container max-w-6xl" id="todos">
+          <!-- TASK LIST -->
+
+          <ul aria-label="tasklist" role="list" class="max-w-6xl">
+            <li class="tasklist-item">Test Task</li>
           </ul>
+
+          <!-- END OF TASK LIST -->
         </div>
       </div>
     </main>
