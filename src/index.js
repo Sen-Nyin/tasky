@@ -16,6 +16,7 @@ import View from './view';
 
 class Controller {
   constructor(model, view) {}
+
   handleAddTask() {}
   handleEditTask() {}
   handleDeleteTask() {}
