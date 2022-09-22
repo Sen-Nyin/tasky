@@ -41,6 +41,7 @@ export default class View {
   // ##########################################
   eventCloseModal() {
     this.buttonCloseModal.addEventListener('click', (e) => {
+      e.preventDefault();
       this.elementModal.classList.add('hidden');
     });
   }
