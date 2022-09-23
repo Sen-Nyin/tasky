@@ -24,13 +24,11 @@ export default class Model {
       complete: false,
     };
     this.tasks.push(task);
-
     this._commitChange(this.tasks);
   }
 
   deleteTask(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
-
     this._commitChange(this.tasks);
   }
 }
