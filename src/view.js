@@ -80,31 +80,55 @@ export default class View {
     } else {
       tasks.forEach((task) => {
         const taskElement = this.createEle('li');
-        const taskText = this.createEle('span', 'flex-1');
+        const taskText = this.createEle(
+          'span',
+          'text-lg',
+          'col-start-2',
+          'row-start-1'
+        );
         const taskDate = this.createEle('span');
         const taskProject = this.createEle('span');
+        const checkbox = this.createEle(
+          'input',
+          'col-start-1',
+          'row-start-1',
+          'mr-6'
+        );
+        checkbox.type = 'checkbox';
 
         const dateContainer = this.createEle(
           'div',
+          'col-start-2',
+          'row-start-2',
           'flex',
           'gap-2',
-          'items-center'
+          'items-center',
+          'text-xs'
         );
         const projectContainer = this.createEle(
           'div',
+          'col-start-3',
+          'row-start-2',
           'flex',
           'gap-2',
           'items-center'
         );
-        const deleteButton = this.createEle('button');
+        const deleteButton = this.createEle(
+          'button',
+          'col-start-3',
+          'row-start-1',
+          'justify-self-end',
+          'fill-current'
+        );
 
         const alarmIcon = this.createSVG('alarm', 'fill-current', 'w-4', 'h-4');
         const labelIcon = this.createSVG('label', 'fill-current', 'w-4', 'h-4');
         const deleteIcon = this.createSVG(
           'delete',
-          'fill-current',
-          'w-4',
-          'h-4'
+
+          'w-6',
+          'h-6',
+          'hover:fill-red-400'
         );
 
         taskElement.classList.add('tasklist-item');
@@ -121,10 +145,11 @@ export default class View {
         projectContainer.append(labelIcon, taskProject);
 
         taskElement.append(
+          checkbox,
           taskText,
+          deleteButton,
           dateContainer,
-          projectContainer,
-          deleteButton
+          projectContainer
         );
         this.elementTaskList.append(taskElement);
       });
@@ -166,7 +191,6 @@ export default class View {
       }
     });
   }
-
   eventDeleteTask(handler) {
     this.elementTaskList.addEventListener('click', (e) => {
       const target = e.target;
