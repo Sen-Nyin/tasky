@@ -19,9 +19,17 @@ class Controller {
     this.view = view;
     this.model = model;
     this.view.eventAddTask(this.handleAddTask);
+    this.view.eventDeleteTask(this.handleDeleteTask);
+    this.model.eventOnChange(this.onChange);
+    this.onChange(this.model.tasks);
   }
 
+  onChange = (tasks) => {
+    this.view.displayTasks(tasks);
+  };
+
   handleAddTask = (task) => this.model.addTask(task);
+  handleDeleteTask = (id) => this.model.deleteTask(id);
 }
 
 const tasky = new Controller(new Model(), new View());

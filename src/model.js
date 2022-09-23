@@ -8,8 +8,11 @@ export default class Model {
     this.projects = [];
   }
 
-  _changed() {
-    // do stuff
+  eventOnChange(handler) {
+    this.onChange = handler;
+  }
+  _commitChange(tasks) {
+    this.onChange(tasks);
   }
 
   addTask(taskDetails) {
@@ -22,6 +25,12 @@ export default class Model {
     };
     this.tasks.push(task);
 
-    // this._changed;
+    this._commitChange(this.tasks);
+  }
+
+  deleteTask(id) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+
+    this._commitChange(this.tasks);
   }
 }
