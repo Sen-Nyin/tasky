@@ -558,6 +558,9 @@ video {
 .mb-4 {
   margin-bottom: 1rem;
 }
+.mt-4 {
+  margin-top: 1rem;
+}
 .flex {
   display: flex;
 }
@@ -741,6 +744,10 @@ video {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 .font-medium {
   font-weight: 500;
 }
@@ -749,6 +756,9 @@ video {
 }
 .font-light {
   font-weight: 300;
+}
+.font-thin {
+  font-weight: 100;
 }
 .uppercase {
   text-transform: uppercase;
@@ -760,6 +770,10 @@ video {
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgba(55, 65, 81, var(--tw-text-opacity));
+}
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 .opacity-100 {
   opacity: 1;
@@ -781,6 +795,9 @@ video {
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: 0 0 rgba(0,0,0,0), 0 0 rgba(0,0,0,0), var(--tw-shadow);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0,0,0,0)), var(--tw-ring-shadow, 0 0 rgba(0,0,0,0)), var(--tw-shadow);
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .duration-200 {
   transition-duration: 200ms;
@@ -830,6 +847,9 @@ video {
   fill: currentColor;
 }
 .tasklist-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.5rem;
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgba(229, 231, 235, var(--tw-border-opacity));
