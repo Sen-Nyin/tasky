@@ -67,27 +67,31 @@ export default class View {
     this.clearTasks();
 
     if (!tasks.length) {
-      const message = this.createEle(
-        'p',
-        'font-thin',
-        'text-2xl',
-        'text-gray-600',
-        'text-center',
-        'mt-4'
-      );
+      const message = this.createEle('p', 'no-tasks-message');
       message.textContent = 'No tasks, go take a walk';
       this.elementTaskList.append(message);
     } else {
       tasks.forEach((task) => {
+        const alarmIcon = this.createSVG('alarm', 'tasklist-icon');
+        const labelIcon = this.createSVG('label', 'tasklist-icon');
+        const deleteIcon = this.createSVG('delete', 'tasklist-delete-icon');
+        deleteIcon.dataset.label = 'delete-button';
+
         const taskElement = this.createEle('li');
-        const taskText = this.createEle(
-          'span',
-          'text-lg',
-          'col-start-2',
-          'row-start-1'
-        );
-        const taskDate = this.createEle('span');
-        const taskProject = this.createEle('span');
+        taskElement.classList.add('tasklist-item');
+        taskElement.dataset.taskid = task.id;
+
+        const taskText = this.createEle('span', 'tasklist-text');
+        taskText.textContent = task.task;
+
+        const taskDate = this.createEle('span', 'tasklist-date');
+        taskDate.textContent = task.duedate;
+        taskDate.prepend(alarmIcon);
+
+        const taskProject = this.createEle('span', 'tasklist-project');
+        taskProject.textContent = task.project;
+        taskProject.prepend(labelIcon);
+
         const checkbox = this.createEle(
           'input',
           'col-start-1',
@@ -96,69 +100,22 @@ export default class View {
         );
         checkbox.type = 'checkbox';
 
-        const dateContainer = this.createEle(
-          'div',
-          'col-start-2',
-          'row-start-2',
-          'flex',
-          'gap-2',
-          'items-center',
-          'text-xs'
-        );
-        const projectContainer = this.createEle(
-          'div',
-          'col-start-3',
-          'row-start-2',
-          'flex',
-          'gap-2',
-          'items-center'
-        );
-        const deleteButton = this.createEle(
-          'button',
-          'col-start-3',
-          'row-start-1',
-          'justify-self-end',
-          'fill-current'
-        );
-
-        const alarmIcon = this.createSVG('alarm', 'fill-current', 'w-4', 'h-4');
-        const labelIcon = this.createSVG('label', 'fill-current', 'w-4', 'h-4');
-        const deleteIcon = this.createSVG(
-          'delete',
-
-          'w-6',
-          'h-6',
-          'hover:fill-red-400'
-        );
-
-        taskElement.classList.add('tasklist-item');
-
-        taskElement.dataset.taskid = task.id;
-        deleteIcon.dataset.label = 'delete-button';
-
-        taskText.textContent = task.task;
-        taskDate.textContent = task.duedate;
-        taskProject.textContent = task.project;
-
+        const deleteButton = this.createEle('button', 'tasklist-delete-btn');
         deleteButton.append(deleteIcon);
-        dateContainer.append(alarmIcon, taskDate);
-        projectContainer.append(labelIcon, taskProject);
 
         taskElement.append(
           checkbox,
           taskText,
           deleteButton,
-          dateContainer,
-          projectContainer
+          taskDate,
+          taskProject
         );
         this.elementTaskList.append(taskElement);
       });
     }
   }
   toggleModal = () => {
-    this.inputNewTaskDate.value = '';
-    this.inputNewTaskTitle.value = '';
-    this.inputNewTaskProject.value = '';
+    this.formNewTask.reset();
     this.elementModal.classList.toggle('hidden');
   };
   // ###############[ HANDLERS ]###############

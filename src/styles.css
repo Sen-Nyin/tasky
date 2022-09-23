@@ -8,7 +8,6 @@
   @apply whitespace-nowrap absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden border-none;
   clip: rect(0, 0, 0, 0);
 }
-
 .sidebar-link {
   @apply flex gap-2 items-center p-3 rounded-md bg-blue-100 hover:bg-blue-500 hover:text-slate-50 hover:cursor-pointer duration-300;
 }
@@ -16,10 +15,30 @@
   @apply w-5 h-5 fill-current;
 }
 .tasklist-item {
-  @apply grid grid-cols-[max-content_1fr_max-content] gap-2 font-light text-sm border-b border-gray-200 p-4 hover:shadow-[inset_0_-90px_0_0_rgba(0,0,0,0.03)] duration-500;
+  @apply grid grid-cols-[max-content_1fr_max-content] gap-2 font-light text-xs border-b border-gray-200 p-4 hover:shadow-[inset_0_-90px_0_0_rgba(0,0,0,0.03)] duration-500;
 }
 .nav-hidden {
   @apply -translate-x-full;
 }
-
+.no-tasks-message {
+  @apply font-thin text-2xl text-gray-600 text-center mt-4;
+}
+.tasklist-text {
+  @apply text-lg col-start-2 row-start-1;
+}
+.tasklist-date {
+  @apply col-start-2 row-start-2 flex gap-2 items-center;
+}
+.tasklist-project {
+  @apply col-start-3 row-start-2 flex gap-2 items-center uppercase;
+}
+.tasklist-icon {
+  @apply fill-current w-4 h-4;
+}
+.tasklist-delete-icon {
+  @apply w-6 h-6 fill-current;
+}
+.tasklist-delete-btn {
+  @apply col-start-3 row-start-1 justify-self-end p-1 rounded-md text-gray-50 bg-red-400 hover:bg-red-500 hover:scale-105 hover:shadow-md duration-300;
+}
 /* ######################### [END] ############################# */
