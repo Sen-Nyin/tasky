@@ -147,17 +147,23 @@
         <!-- MODAL HEADER -->
 
         <div
+          data-label="modal-title"
           class="p-4 max-h-max bg-blue-500 opacity-100 font-bold text-gray-50 text-lg"
         >
           Title
         </div>
 
         <!-- TASK FORM -->
-        <form class="flex flex-col p-4 gap-2" action="">
+        <form
+          data-label="new-task-form"
+          class="flex flex-col p-4 gap-2"
+          action=""
+        >
           <label for="modal-task-title" class="font-light uppercase text-sm"
             >Task Title</label
           >
           <input
+            data-label="modal-task-title"
             type="text"
             id="modal-task-title"
             class="border border-gray-300 rounded-md p-2 mb-4"
@@ -166,6 +172,7 @@
             >Due Date</label
           >
           <input
+            data-label="modal-task-date"
             type="date"
             name=""
             id="modal-task-date"
@@ -175,6 +182,7 @@
             >Project</label
           >
           <select
+            data-label="modal-task-project"
             name="modal-project-select"
             id="modal-project-select"
             class="border border-gray-300 rounded-md p-2 mb-4"
@@ -190,6 +198,7 @@
               Cancel
             </button>
             <button
+              data-label="addtask"
               class="border px-4 py-2 rounded-md text-gray-50 bg-emerald-400 hover:bg-emerald-500 duration-200"
             >
               Submit

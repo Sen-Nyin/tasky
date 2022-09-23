@@ -15,15 +15,13 @@ import View from './view';
 // ###################################################
 
 class Controller {
-  constructor(model, view) {}
+  constructor(model, view) {
+    this.view = view;
+    this.model = model;
+    this.view.eventAddTask(this.handleAddTask);
+  }
 
-  handleAddTask() {}
-  handleEditTask() {}
-  handleDeleteTask() {}
-  handleCompleteTask() {}
-  handleAddProject() {}
-  handleEditProject() {}
-  handleDeleteProject() {}
+  handleAddTask = (task) => this.model.addTask(task);
 }
 
 const tasky = new Controller(new Model(), new View());
