@@ -30,6 +30,10 @@ class Controller {
 
   handleAddTask = (task) => this.model.addTask(task);
   handleDeleteTask = (id) => this.model.deleteTask(id);
+  handleCompleteTask(id) {}
+  handleAddProject = (project) => this.model.addProject(project);
+  handleEditProject() {}
+  handleDeleteProject = (project) => this.model.deleteProject(project);
 }
 
 const tasky = new Controller(new Model(), new View());
