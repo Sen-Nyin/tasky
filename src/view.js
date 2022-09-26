@@ -31,6 +31,9 @@ export default class View {
     this.eventForm();
     this.eventNew();
   }
+
+  // #################### [ FORM EVALUATION ] ##################
+
   get _taskDetails() {
     const title = this.findEle('[data-label="modal-task-title"]');
     const date = this.findEle('[data-label="modal-task-date"]');
@@ -43,10 +46,14 @@ export default class View {
       };
     }
   }
+
   get _projectDetails() {
     const projectTitle = this.findEle('[data-label="project-title"]');
     return projectTitle.value;
   }
+
+  // #################### [ UTILITY FUNCTIONS ] ##################
+
   createEle(...args) {
     const [ele, ...styles] = args;
     const element = document.createElement(ele);
@@ -67,6 +74,16 @@ export default class View {
     const element = document.querySelector(selector);
     return element;
   }
+
+  // ####################[ DOM TOGGLES ] ##################
+
+  toggleModal = () => {
+    this.form.reset();
+    this.elementOverlay.classList.toggle('hidden');
+  };
+
+  // ####################[ DOM CLEARING ] ##################
+
   clearTasks() {
     while (this.elementTaskList.firstElementChild)
       this.elementTaskList.firstElementChild.remove();
@@ -74,6 +91,9 @@ export default class View {
   clearForm() {
     while (this.form.firstElementChild) this.form.firstElementChild.remove();
   }
+
+  // ################## [ DOM INJECTION ] ##################
+
   displayTasks(tasks) {
     this.clearTasks();
 
@@ -134,10 +154,6 @@ export default class View {
       });
     }
   }
-  toggleModal = () => {
-    this.form.reset();
-    this.elementOverlay.classList.toggle('hidden');
-  };
 
   buildModal = (type) => {
     this.clearForm();
@@ -230,8 +246,6 @@ export default class View {
       submitButton.dataset.subtype = 'project';
     }
     this.form.append(buttonContainer);
-
-    //stuff
   };
   // ###############[ HANDLERS ]###############
   // consider combining common event handlers into single functions
@@ -259,15 +273,16 @@ export default class View {
       const datalabel = e.target.closest('button')?.dataset.label;
 
       if (datalabel) {
-        if (datalabel === 'new-task-header') {
-          const type = 'task';
+        const type =
+          datalabel === 'new-task-header'
+            ? 'task'
+            : datalabel === 'new-project-header'
+            ? 'project'
+            : null;
+        if (type) {
           this.buildModal(type);
+          this.toggleModal();
         }
-        if (datalabel === 'new-project-header') {
-          const type = 'project';
-          this.buildModal(type);
-        }
-        this.toggleModal();
       }
     });
   }
@@ -305,14 +320,4 @@ export default class View {
       }
     });
   }
-
-  // eventAddProject(handler) {
-  //   this.form.addEventListener('submit', (e) => {
-  //     e.preventDefault();
-  //     console.log(e.submitter);
-  //     if (e.submitter.dataset.subtype === 'project') {
-
-  //     }
-  //   });
-  // }
 }

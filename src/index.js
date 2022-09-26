@@ -24,22 +24,14 @@ class Controller {
     this.view.getProjects = this.handleProjectsRequest;
     this.model.eventOnTaskChange(this.onTaskChange);
     this.onTaskChange(this.model.tasks);
-    console.log(this.view.getProjects());
   }
 
-  onTaskChange = (tasks) => {
-    this.view.displayTasks(tasks);
-  };
-
+  onTaskChange = (tasks) => this.view.displayTasks(tasks);
   handleProjectsRequest = () => this.model._projects;
-
   handleAddTaskProject = (item, type) => this.model.addTaskProject(item, type);
   handleDeleteTask = (id) => this.model.deleteTask(id);
   handleCompleteTask = (id) => this.model.completeTask(id);
-
   handleAddProject = (project) => this.model.addProject(project);
-  handleEditProject() {}
-  // handleDeleteProject = (project) => this.model.deleteProject(project);
 }
 
 const tasky = new Controller(new Model(), new View());

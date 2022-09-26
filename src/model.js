@@ -72,7 +72,4 @@ export default class Model {
     console.log(id, ' updated');
     console.log(this.tasks);
   }
-  // addProject(projectDetails) {
-
-  // }
 }
