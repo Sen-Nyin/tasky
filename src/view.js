@@ -25,11 +25,6 @@ export default class View {
     this.formButtonContainer = this.findEle(
       '[data-label="form-button-container"]'
     );
-
-    // ##########[ Immediate Calls ]##########
-    this.eventToggleNav();
-    this.eventForm();
-    this.eventNew();
   }
 
   // #################### [ FORM EVALUATION ] ##################
@@ -107,8 +102,7 @@ export default class View {
         const labelIcon = this.createSVG('label', 'tasklist-icon');
         const deleteIcon = this.createSVG('delete', 'tasklist-delete-icon');
 
-        const taskElement = this.createEle('li');
-        taskElement.classList.add('tasklist-item');
+        const taskElement = this.createEle('li', 'tasklist-item');
         taskElement.dataset.taskid = task.id;
 
         const taskText = this.createEle('span', 'tasklist-text');
@@ -165,53 +159,52 @@ export default class View {
     );
     buttonContainer.dataset.label = 'form-button-container';
 
-    const closeButton = this.createEle('button');
+    const closeButton = this.createEle(
+      'button',
+      'form-button',
+      'bg-red-400',
+      'hover:bg-red-500'
+    );
     closeButton.dataset.label = 'close-modal';
     closeButton.id = 'close-modal';
     closeButton.textContent = 'Cancel';
-    closeButton.classList.add('form-button', 'bg-red-400', 'hover:bg-red-500');
 
-    const submitButton = this.createEle('button');
-    submitButton.dataset.label = 'submit';
-    submitButton.id = 'submit';
-    submitButton.textContent = 'Submit';
-    submitButton.classList.add(
+    const submitButton = this.createEle(
+      'button',
       'form-button',
       'bg-emerald-400',
       'hover:bg-emerald-500'
     );
+    submitButton.dataset.label = 'submit';
+    submitButton.id = 'submit';
+    submitButton.textContent = 'Submit';
+
     buttonContainer.append(closeButton, submitButton);
     if (type === 'task') {
       this.labelModalTitle.textContent = 'New Task';
 
-      const taskTitleInputLabel = this.createEle('label');
+      const taskTitleInputLabel = this.createEle('label', 'form-label');
       taskTitleInputLabel.textContent = 'Task title';
-      taskTitleInputLabel.classList.add('form-label');
       taskTitleInputLabel.for = 'modal-task-title';
-      const taskTitleInput = this.createEle('input');
+      const taskTitleInput = this.createEle('input', 'form-input');
       taskTitleInput.dataset.label = 'modal-task-title';
       taskTitleInput.type = 'text';
       taskTitleInput.id = 'modal-task-title';
-      taskTitleInput.classList.add('form-input');
 
-      const taskDueDateInputLabel = this.createEle('label');
+      const taskDueDateInputLabel = this.createEle('label', 'form-label');
       taskDueDateInputLabel.textContent = 'Due date';
-      taskDueDateInputLabel.classList.add('form-label');
       taskDueDateInputLabel.for = 'modal-task-date';
-      const taskDueDateInput = this.createEle('input');
+      const taskDueDateInput = this.createEle('input', 'form-input');
       taskDueDateInput.dataset.label = 'modal-task-date';
       taskDueDateInput.type = 'date';
       taskDueDateInput.id = 'modal-task-date';
-      taskDueDateInput.classList.add('form-input');
 
-      const taskProjectInputLabel = this.createEle('label');
+      const taskProjectInputLabel = this.createEle('label', 'form-label');
       taskProjectInputLabel.textContent = 'Project';
-      taskProjectInputLabel.classList.add('form-label');
       taskProjectInputLabel.for = 'modal-project-select';
-      const taskProjectInput = this.createEle('select');
+      const taskProjectInput = this.createEle('select', 'form-input');
       taskProjectInput.dataset.label = 'modal-task-project';
       taskProjectInput.id = 'modal-project-select';
-      taskProjectInput.classList.add('form-input');
 
       const projects = this.getProjects();
       projects.forEach((project) => {
@@ -233,15 +226,13 @@ export default class View {
       );
     } else if (type === 'project') {
       this.labelModalTitle.textContent = 'New Project';
-      const projectLabel = this.createEle('label');
+      const projectLabel = this.createEle('label', 'form-label');
       projectLabel.textContent = 'Project name';
-      projectLabel.classList.add('form-label');
       projectLabel.for = 'project-title';
-      const projectTitle = this.createEle('input');
+      const projectTitle = this.createEle('input', 'form-input');
       projectTitle.dataset.label = 'project-title';
       projectTitle.type = 'text';
       projectTitle.id = 'project-title';
-      projectTitle.classList.add('form-input');
       this.form.append(projectLabel, projectTitle);
       submitButton.dataset.subtype = 'project';
     }

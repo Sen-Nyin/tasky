@@ -24,6 +24,9 @@ class Controller {
     this.view.getProjects = this.handleProjectsRequest;
     this.model.eventOnTaskChange(this.onTaskChange);
     this.onTaskChange(this.model.tasks);
+    this.view.eventToggleNav();
+    this.view.eventForm();
+    this.view.eventNew();
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);
