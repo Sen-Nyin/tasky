@@ -13,31 +13,47 @@ export default class Model {
         complete: false,
       },
     ];
-    this.projects = [];
+    this.projects = [{ id: 1, name: 'uncategorised' }];
   }
 
-  eventOnChange(handler) {
-    this.onChange = handler;
-  }
-  _commitChange(tasks) {
-    this.onChange(tasks);
+  get _projects() {
+    return this.projects;
   }
 
-  addTask(taskDetails) {
-    const task = {
-      id: this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].id + 1 : 1,
-      task: taskDetails.title,
-      duedate: taskDetails.date,
-      project: taskDetails.project,
-      complete: false,
-    };
-    this.tasks.push(task);
-    this._commitChange(this.tasks);
+  eventOnTaskChange(handler) {
+    this.onTaskChange = handler;
+  }
+  _commitTaskChange(tasks) {
+    this.onTaskChange(tasks);
+  }
+  addTaskProject(details, type) {
+    if (type === 'task') {
+      const task = {
+        id:
+          this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].id + 1 : 1,
+        task: details.title,
+        duedate: details.date,
+        project: details.project,
+        complete: false,
+      };
+      this.tasks.push(task);
+      this._commitTaskChange(this.tasks);
+    } else if (type === 'project') {
+      const project = {
+        id:
+          this.projects.length > 0
+            ? this.projects[this.projects.length - 1].id + 1
+            : 1,
+        name: details,
+      };
+      this.projects.push(project);
+      console.log(this.projects);
+    }
   }
 
   deleteTask(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
-    this._commitChange(this.tasks);
+    this._commitTaskChange(this.tasks);
   }
 
   completeTask(id) {
@@ -52,8 +68,11 @@ export default class Model {
           }
         : task
     );
-    this._commitChange(this.tasks);
+    this._commitTaskChange(this.tasks);
     console.log(id, ' updated');
     console.log(this.tasks);
   }
+  // addProject(projectDetails) {
+
+  // }
 }

@@ -5,6 +5,7 @@ import sprite from './assets/sprite.svg';
 
 export default class View {
   constructor() {
+    this.elementHeader = this.findEle('header');
     this.elementNavContainer = this.findEle('[data-label="nav-container"]');
     this.elementNavbar = this.findEle('[data-label="nav-list"]');
     this.buttonNewTask = this.findEle('[data-label="new-task-header"]');
@@ -16,32 +17,35 @@ export default class View {
 
     // ##########[ MODAL ]
     this.buttonCloseModal = this.findEle('#close-modal');
+    this.labelModalTitle = this.findEle('[data-label="modal-title"]');
+    this.elementOverlay = this.findEle('[data-label="overlay"]');
     this.elementModal = this.findEle('[data-label="modal"]');
-    this.buttonFormSubmit = this.findEle('[data-label="submit-task"]');
-    this.formNewTask = this.findEle('[data-label="modal-task-form"]');
-    this.inputNewTaskTitle = this.findEle('[data-label="modal-task-title"]');
-    this.inputNewTaskDate = this.findEle('[data-label="modal-task-date"]');
-    this.inputNewTaskProject = this.findEle(
-      '[data-label="modal-task-project"]'
+    this.buttonFormSubmit = this.findEle('[data-label="submit"]');
+    this.form = this.findEle('[data-label="modal-task-form"]');
+    this.formButtonContainer = this.findEle(
+      '[data-label="form-button-container"]'
     );
 
     // ##########[ Immediate Calls ]##########
     this.eventToggleNav();
-    this.eventCloseModal();
-    this.eventNewTask();
+    this.eventForm();
+    this.eventNew();
   }
   get _taskDetails() {
-    if (
-      this.inputNewTaskTitle.value &&
-      this.inputNewTaskDate.value &&
-      this.inputNewTaskProject.value
-    ) {
+    const title = this.findEle('[data-label="modal-task-title"]');
+    const date = this.findEle('[data-label="modal-task-date"]');
+    const project = this.findEle('[data-label="modal-task-project"]');
+    if (title.value && date.value && project.value) {
       return {
-        title: this.inputNewTaskTitle.value,
-        date: this.inputNewTaskDate.value,
-        project: this.inputNewTaskProject.value,
+        title: title.value,
+        date: date.value,
+        project: project.value,
       };
     }
+  }
+  get _projectDetails() {
+    const projectTitle = this.findEle('[data-label="project-title"]');
+    return projectTitle.value;
   }
   createEle(...args) {
     const [ele, ...styles] = args;
@@ -67,6 +71,9 @@ export default class View {
     while (this.elementTaskList.firstElementChild)
       this.elementTaskList.firstElementChild.remove();
   }
+  clearForm() {
+    while (this.form.firstElementChild) this.form.firstElementChild.remove();
+  }
   displayTasks(tasks) {
     this.clearTasks();
 
@@ -79,7 +86,6 @@ export default class View {
         const alarmIcon = this.createSVG('alarm', 'tasklist-icon');
         const labelIcon = this.createSVG('label', 'tasklist-icon');
         const deleteIcon = this.createSVG('delete', 'tasklist-delete-icon');
-        deleteIcon.dataset.label = 'delete-button';
 
         const taskElement = this.createEle('li');
         taskElement.classList.add('tasklist-item');
@@ -106,6 +112,7 @@ export default class View {
 
         const deleteButton = this.createEle('button', 'tasklist-delete-btn');
         deleteButton.append(deleteIcon);
+        deleteButton.dataset.label = 'delete-button';
 
         if (task.complete) {
           taskElement.classList.add('bg-emerald-100');
@@ -128,43 +135,163 @@ export default class View {
     }
   }
   toggleModal = () => {
-    this.formNewTask.reset();
-    this.elementModal.classList.toggle('hidden');
+    this.form.reset();
+    this.elementOverlay.classList.toggle('hidden');
+  };
+
+  buildModal = (type) => {
+    this.clearForm();
+    const buttonContainer = this.createEle(
+      'div',
+      'flex',
+      'justify-end',
+      'gap-2'
+    );
+    buttonContainer.dataset.label = 'form-button-container';
+
+    const closeButton = this.createEle('button');
+    closeButton.dataset.label = 'close-modal';
+    closeButton.id = 'close-modal';
+    closeButton.textContent = 'Cancel';
+    closeButton.classList.add('form-button', 'bg-red-400', 'hover:bg-red-500');
+
+    const submitButton = this.createEle('button');
+    submitButton.dataset.label = 'submit';
+    submitButton.id = 'submit';
+    submitButton.textContent = 'Submit';
+    submitButton.classList.add(
+      'form-button',
+      'bg-emerald-400',
+      'hover:bg-emerald-500'
+    );
+    buttonContainer.append(closeButton, submitButton);
+    if (type === 'task') {
+      this.labelModalTitle.textContent = 'New Task';
+
+      const taskTitleInputLabel = this.createEle('label');
+      taskTitleInputLabel.textContent = 'Task title';
+      taskTitleInputLabel.classList.add('form-label');
+      taskTitleInputLabel.for = 'modal-task-title';
+      const taskTitleInput = this.createEle('input');
+      taskTitleInput.dataset.label = 'modal-task-title';
+      taskTitleInput.type = 'text';
+      taskTitleInput.id = 'modal-task-title';
+      taskTitleInput.classList.add('form-input');
+
+      const taskDueDateInputLabel = this.createEle('label');
+      taskDueDateInputLabel.textContent = 'Due date';
+      taskDueDateInputLabel.classList.add('form-label');
+      taskDueDateInputLabel.for = 'modal-task-date';
+      const taskDueDateInput = this.createEle('input');
+      taskDueDateInput.dataset.label = 'modal-task-date';
+      taskDueDateInput.type = 'date';
+      taskDueDateInput.id = 'modal-task-date';
+      taskDueDateInput.classList.add('form-input');
+
+      const taskProjectInputLabel = this.createEle('label');
+      taskProjectInputLabel.textContent = 'Project';
+      taskProjectInputLabel.classList.add('form-label');
+      taskProjectInputLabel.for = 'modal-project-select';
+      const taskProjectInput = this.createEle('select');
+      taskProjectInput.dataset.label = 'modal-task-project';
+      taskProjectInput.id = 'modal-project-select';
+      taskProjectInput.classList.add('form-input');
+
+      const projects = this.getProjects();
+      projects.forEach((project) => {
+        const option = this.createEle('option');
+        option.value = project.name;
+        option.textContent = project.name;
+        taskProjectInput.append(option);
+      });
+
+      submitButton.dataset.subtype = 'task';
+
+      this.form.prepend(
+        taskTitleInputLabel,
+        taskTitleInput,
+        taskDueDateInputLabel,
+        taskDueDateInput,
+        taskProjectInputLabel,
+        taskProjectInput
+      );
+    } else if (type === 'project') {
+      this.labelModalTitle.textContent = 'New Project';
+      const projectLabel = this.createEle('label');
+      projectLabel.textContent = 'Project name';
+      projectLabel.classList.add('form-label');
+      projectLabel.for = 'project-title';
+      const projectTitle = this.createEle('input');
+      projectTitle.dataset.label = 'project-title';
+      projectTitle.type = 'text';
+      projectTitle.id = 'project-title';
+      projectTitle.classList.add('form-input');
+      this.form.append(projectLabel, projectTitle);
+      submitButton.dataset.subtype = 'project';
+    }
+    this.form.append(buttonContainer);
+
+    //stuff
   };
   // ###############[ HANDLERS ]###############
   // consider combining common event handlers into single functions
   // i.e., eventAddTask and eventAddProject both trigger on submit event
   // ##########################################
 
-  eventCloseModal() {
-    this.buttonCloseModal.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.toggleModal();
+  eventForm() {
+    this.form.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.dataset.label === 'close-modal') {
+        e.preventDefault();
+        this.toggleModal();
+      }
     });
   }
+
   eventToggleNav() {
     this.buttonBurger.addEventListener('click', (e) => {
       this.elementNavContainer.classList.toggle('nav-hidden');
     });
   }
-  eventNewTask() {
-    this.buttonNewTask.addEventListener('click', (e) => {
-      this.toggleModal();
+  eventNew() {
+    this.elementHeader.addEventListener('click', (e) => {
+      e.preventDefault();
+      const datalabel = e.target.closest('button')?.dataset.label;
+
+      if (datalabel) {
+        if (datalabel === 'new-task-header') {
+          const type = 'task';
+          this.buildModal(type);
+        }
+        if (datalabel === 'new-project-header') {
+          const type = 'project';
+          this.buildModal(type);
+        }
+        this.toggleModal();
+      }
     });
   }
-  eventAddTask(handler) {
-    this.formNewTask.addEventListener('submit', (e) => {
+  eventAddTaskProject(handler) {
+    this.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (this._taskDetails) {
-        handler(this._taskDetails);
-        this.toggleModal();
+      const type = e.submitter.dataset.subtype;
+      if (type === 'task') {
+        if (this._taskDetails) {
+          handler(this._taskDetails, type);
+          this.toggleModal();
+        }
+      } else if (type === 'project') {
+        if (this._projectDetails) {
+          handler(this._projectDetails, type);
+          this.toggleModal();
+        }
       }
     });
   }
   eventDeleteTask(handler) {
     this.elementTaskList.addEventListener('click', (e) => {
       const target = e.target;
-      if (target.dataset.label === 'delete-button') {
+      if (target.closest('button').dataset.label === 'delete-button') {
         const id = Number(target.closest('li').dataset.taskid);
         handler(id);
       }
@@ -178,4 +305,14 @@ export default class View {
       }
     });
   }
+
+  // eventAddProject(handler) {
+  //   this.form.addEventListener('submit', (e) => {
+  //     e.preventDefault();
+  //     console.log(e.submitter);
+  //     if (e.submitter.dataset.subtype === 'project') {
+
+  //     }
+  //   });
+  // }
 }

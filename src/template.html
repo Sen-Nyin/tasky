@@ -40,6 +40,21 @@
         </svg>
         <span>Task</span>
       </button>
+
+      <button
+        data-label="new-project-header"
+        class="flex items-center gap-1 py-1 px-2 border text-gray-50 hover:bg-gray-50 hover:text-gray-600 text-xs font-bold uppercase rounded-full duration-200"
+      >
+        <svg
+          aria-label="add project button"
+          class="fill-current w-4 h-4 hover:scale-125 duration-200"
+          data-label="addprojectbtn"
+        >
+          <use href="./assets/sprite.svg#icon-add"></use>
+        </svg>
+        <span>Project</span>
+      </button>
+
       <button
         aria-controls="navbar"
         aria-expanded="false"
@@ -134,21 +149,21 @@
     <!-- OVERLAY -->
 
     <div
-      data-label="modal"
+      data-label="overlay"
       class="grid place-items-center bg-zinc-800/50 w-screen h-screen fixed hidden"
     >
       <!-- MODAL  -->
 
       <div
+        data-lebel="modal"
         class="absolute z-100 opacity-100 w-64 sm:w-72 md:w-80 lg:w-96 bg-gray-50 shadow-2xl border border-zinc-800/60 rounded-md overflow-hidden duration-300"
       >
         <!-- MODAL HEADER -->
 
         <div
-          data-label="modal-title"
           class="p-4 max-h-max bg-blue-500 opacity-100 font-bold text-gray-50 text-lg"
         >
-          Title
+          <h3 data-label="modal-title"></h3>
         </div>
 
         <!-- TASK FORM -->
@@ -156,53 +171,7 @@
           data-label="modal-task-form"
           class="flex flex-col p-4 gap-2"
           action=""
-        >
-          <label for="modal-task-title" class="font-light uppercase text-sm"
-            >Task Title</label
-          >
-          <input
-            data-label="modal-task-title"
-            type="text"
-            id="modal-task-title"
-            class="border border-gray-300 rounded-md p-2 mb-4"
-          />
-          <label for="modal-task-date" class="font-light uppercase text-sm"
-            >Due Date</label
-          >
-          <input
-            data-label="modal-task-date"
-            type="date"
-            name=""
-            id="modal-task-date"
-            class="border border-gray-300 rounded-md p-2 mb-4"
-          />
-          <label for="modal-project-select" class="font-light uppercase text-sm"
-            >Project</label
-          >
-          <select
-            data-label="modal-task-project"
-            name="modal-project-select"
-            id="modal-project-select"
-            class="border border-gray-300 rounded-md p-2 mb-4"
-          >
-            <option value="none">None</option>
-            <option value="iso9001">ISO9001</option>
-          </select>
-          <div class="flex justify-end gap-2">
-            <button
-              id="close-modal"
-              class="border px-4 py-2 rounded-md text-gray-50 bg-red-400 hover:bg-red-500 duration-200"
-            >
-              Cancel
-            </button>
-            <button
-              data-label="submit-task"
-              class="border px-4 py-2 rounded-md text-gray-50 bg-emerald-400 hover:bg-emerald-500 duration-200"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+        ></form>
       </div>
     </div>
   </body>

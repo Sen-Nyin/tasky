@@ -44,4 +44,13 @@
 .task-complete {
   @apply text-gray-400 line-through duration-500;
 }
+.form-label {
+  @apply font-light uppercase text-sm;
+}
+.form-input {
+  @apply border border-gray-300 rounded-md p-2 mb-4 w-full;
+}
+.form-button {
+  @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
+}
 /* ######################### [END] ############################# */

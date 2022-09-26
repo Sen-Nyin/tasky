@@ -18,24 +18,28 @@ class Controller {
   constructor(model, view) {
     this.view = view;
     this.model = model;
-    this.view.eventAddTask(this.handleAddTask);
+    this.view.eventAddTaskProject(this.handleAddTaskProject);
     this.view.eventDeleteTask(this.handleDeleteTask);
     this.view.eventCompleteTask(this.handleCompleteTask);
-    this.model.eventOnChange(this.onChange);
-    this.onChange(this.model.tasks);
+    this.view.getProjects = this.handleProjectsRequest;
+    this.model.eventOnTaskChange(this.onTaskChange);
+    this.onTaskChange(this.model.tasks);
+    console.log(this.view.getProjects());
   }
 
-  onChange = (tasks) => {
+  onTaskChange = (tasks) => {
     this.view.displayTasks(tasks);
   };
 
-  handleAddTask = (task) => this.model.addTask(task);
+  handleProjectsRequest = () => this.model._projects;
+
+  handleAddTaskProject = (item, type) => this.model.addTaskProject(item, type);
   handleDeleteTask = (id) => this.model.deleteTask(id);
   handleCompleteTask = (id) => this.model.completeTask(id);
 
   handleAddProject = (project) => this.model.addProject(project);
   handleEditProject() {}
-  handleDeleteProject = (project) => this.model.deleteProject(project);
+  // handleDeleteProject = (project) => this.model.deleteProject(project);
 }
 
 const tasky = new Controller(new Model(), new View());
