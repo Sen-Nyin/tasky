@@ -20,6 +20,7 @@ class Controller {
     this.model = model;
     this.view.eventAddTask(this.handleAddTask);
     this.view.eventDeleteTask(this.handleDeleteTask);
+    this.view.eventCompleteTask(this.handleCompleteTask);
     this.model.eventOnChange(this.onChange);
     this.onChange(this.model.tasks);
   }
@@ -30,7 +31,8 @@ class Controller {
 
   handleAddTask = (task) => this.model.addTask(task);
   handleDeleteTask = (id) => this.model.deleteTask(id);
-  handleCompleteTask(id) {}
+  handleCompleteTask = (id) => this.model.completeTask(id);
+
   handleAddProject = (project) => this.model.addProject(project);
   handleEditProject() {}
   handleDeleteProject = (project) => this.model.deleteProject(project);

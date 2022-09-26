@@ -36,9 +36,12 @@
   @apply fill-current w-4 h-4;
 }
 .tasklist-delete-icon {
-  @apply w-6 h-6 fill-current;
+  @apply w-5 h-5 fill-current;
 }
 .tasklist-delete-btn {
-  @apply col-start-3 row-start-1 justify-self-end p-1 rounded-md text-gray-50 bg-red-400 hover:bg-red-500 hover:scale-105 hover:shadow-md duration-300;
+  @apply col-start-3 row-start-1 justify-self-end p-1 rounded-full text-gray-50 bg-red-400 hover:bg-red-500 hover:scale-105 hover:shadow-md duration-300;
+}
+.task-complete {
+  @apply text-gray-400 line-through duration-500;
 }
 /* ######################### [END] ############################# */

@@ -5,16 +5,20 @@ import sprite from './assets/sprite.svg';
 
 export default class View {
   constructor() {
-    this.elementNavContainer = this.findEle('[data-label="navcontainer"]');
-    this.elementNavbar = this.findEle('[data-label="navbar"]');
-    this.buttonNewTask = this.findEle('[data-label="addTaskMain"]');
-    this.buttonBurger = this.findEle('[data-label="navtoggle"]');
-    this.labelTaskListHeading = this.findEle('[data-label="tasklistHeading"]');
-    this.elementTaskList = this.findEle('[data-label="tasklist"]');
+    this.elementNavContainer = this.findEle('[data-label="nav-container"]');
+    this.elementNavbar = this.findEle('[data-label="nav-list"]');
+    this.buttonNewTask = this.findEle('[data-label="new-task-header"]');
+    this.buttonBurger = this.findEle('[data-label="toggle-navigation"]');
+
+    // ########## [ TASK LIST]
+    this.labelTaskListHeading = this.findEle('[data-label="task-list-title"]');
+    this.elementTaskList = this.findEle('[data-label="task-list"]');
+
+    // ##########[ MODAL ]
     this.buttonCloseModal = this.findEle('#close-modal');
     this.elementModal = this.findEle('[data-label="modal"]');
-    this.buttonFormSubmit = this.findEle('[data-label="addtask"]');
-    this.formNewTask = this.findEle('[data-label="new-task-form"]');
+    this.buttonFormSubmit = this.findEle('[data-label="submit-task"]');
+    this.formNewTask = this.findEle('[data-label="modal-task-form"]');
     this.inputNewTaskTitle = this.findEle('[data-label="modal-task-title"]');
     this.inputNewTaskDate = this.findEle('[data-label="modal-task-date"]');
     this.inputNewTaskProject = this.findEle(
@@ -103,6 +107,15 @@ export default class View {
         const deleteButton = this.createEle('button', 'tasklist-delete-btn');
         deleteButton.append(deleteIcon);
 
+        if (task.complete) {
+          taskElement.classList.add('bg-emerald-100');
+          checkbox.checked = true;
+          checkbox.classList.add('accent-emerald-400');
+          taskText.classList.add('task-complete');
+          taskDate.textContent = 'Complete';
+          taskDate.classList.add('text-gray-500');
+        }
+
         taskElement.append(
           checkbox,
           taskText,
@@ -153,6 +166,14 @@ export default class View {
       const target = e.target;
       if (target.dataset.label === 'delete-button') {
         const id = Number(target.closest('li').dataset.taskid);
+        handler(id);
+      }
+    });
+  }
+  eventCompleteTask(handler) {
+    this.elementTaskList.addEventListener('change', (e) => {
+      if (e.target.type === 'checkbox') {
+        const id = Number(e.target.parentElement.dataset.taskid);
         handler(id);
       }
     });

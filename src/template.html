@@ -28,7 +28,7 @@
       <!-- ADD TASK BUTTON -->
 
       <button
-        data-label="addTaskMain"
+        data-label="new-task-header"
         class="flex items-center gap-1 py-1 px-2 border text-gray-50 hover:bg-gray-50 hover:text-gray-600 text-xs font-bold uppercase rounded-full duration-200"
       >
         <svg
@@ -45,7 +45,7 @@
         aria-expanded="false"
         id="toggle-subnav"
         class="px-2 lg:hidden"
-        data-label="navtoggle"
+        data-label="toggle-navigation"
       >
         <span class="visually-hidden">Menu</span>
         <svg class="fill-gray-50 w-6 h-6 hover:scale-125 duration-200">
@@ -61,18 +61,18 @@
 
       <nav
         id="navbar"
-        data-label="navcontainer"
+        data-label="nav-container"
         class="absolute overflow-hidden bg-gray-100 shadow-sm text-gray-700 h-full w-72 px-6 py-6 nav-hidden duration-500 lg:static lg:translate-x-0"
       >
         <ul
           aria-label="navbar"
           role="list"
           class="flex flex-col gap-4 text-sm font-light justify-center lg:justify-start"
-          data-label="navbar"
+          data-label="nav-list"
         >
           <li class="sidebar-item">
             <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="todayviewbtn">
+              <svg class="sidebar-svg" data-label="today-filter">
                 <use href="./assets/sprite.svg#icon-today"></use>
               </svg>
               <p>Due Today</p>
@@ -80,7 +80,7 @@
           </li>
           <li class="sidebar-item">
             <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="upcomingviewbtn">
+              <svg class="sidebar-svg" data-label="upcoming-filter">
                 <use href="./assets/sprite.svg#icon-date"></use>
               </svg>
               <p>Upcoming</p>
@@ -88,7 +88,7 @@
           </li>
           <li class="sidebar-item">
             <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="projectbtn">
+              <svg class="sidebar-svg" data-label="project-list-toggle">
                 <use href="./assets/sprite.svg#icon-project"></use>
               </svg>
               <p>Projects</p>
@@ -104,7 +104,7 @@
       >
         <h2
           class="font-bold text-xl border-b border-gray-400 w-full pb-8"
-          data-label="tasklistHeading"
+          data-label="task-list-title"
         >
           Tasks
         </h2>
@@ -112,13 +112,11 @@
           <!-- TASK LIST -->
 
           <ul
-            aria-label="tasklist"
-            data-label="tasklist"
+            aria-label="task list"
+            data-label="task-list"
             role="list"
             class="max-w-6xl"
-          >
-            <li class="tasklist-item">Test Task</li>
-          </ul>
+          ></ul>
 
           <!-- END OF TASK LIST -->
         </div>
@@ -155,7 +153,7 @@
 
         <!-- TASK FORM -->
         <form
-          data-label="new-task-form"
+          data-label="modal-task-form"
           class="flex flex-col p-4 gap-2"
           action=""
         >
@@ -198,7 +196,7 @@
               Cancel
             </button>
             <button
-              data-label="addtask"
+              data-label="submit-task"
               class="border px-4 py-2 rounded-md text-gray-50 bg-emerald-400 hover:bg-emerald-500 duration-200"
             >
               Submit
