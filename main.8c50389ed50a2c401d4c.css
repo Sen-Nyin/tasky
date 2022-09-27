@@ -536,10 +536,16 @@ video {
     max-width: 1280px;
   }
 }
-@media (min-width: 1536px) {
+@media (min-width: 1536) {
 
   .container {
-    max-width: 1536px;
+    max-width: 1536;
+  }
+}
+@media (min-width: 1720px) {
+
+  .container {
+    max-width: 1720px;
   }
 }
 .absolute {
@@ -1015,13 +1021,13 @@ video {
     justify-content: flex-start;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1720px) {
 
-  .xl\:hidden {
+  .\33xl\:hidden {
     display: none;
   }
 
-  .xl\:translate-x-0 {
+  .\33xl\:translate-x-0 {
     --tw-translate-x: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
