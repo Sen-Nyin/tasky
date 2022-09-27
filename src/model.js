@@ -1,18 +1,17 @@
 'use: strict';
 
-// ##########################################################
+// ####################[ IMPORTS ]####################
+
+// ###################[END IMPORTS]###################
+
+// ######################[ MODEL ]####################
+// Controls data
+//
+// ###################################################
 
 export default class Model {
   constructor() {
-    this.tasks = [
-      {
-        id: 1,
-        task: 'test task',
-        duedate: '19 Aug 2022',
-        project: 'fake project',
-        complete: false,
-      },
-    ];
+    this.tasks = [];
     this.projects = [{ id: 1, name: 'uncategorised' }];
   }
 
@@ -69,7 +68,5 @@ export default class Model {
         : task
     );
     this._commitTaskChange(this.tasks);
-    console.log(id, ' updated');
-    console.log(this.tasks);
   }
 }

@@ -1,7 +1,14 @@
 'use: strict';
 import sprite from './assets/sprite.svg';
 
-// ##########################################################
+// ####################[ IMPORTS ]####################
+
+// ###################[END IMPORTS]###################
+
+// ######################[ VIEW ]####################
+// Controls the display
+//
+// ###################################################
 
 export default class View {
   constructor() {
@@ -10,6 +17,7 @@ export default class View {
     this.elementNavbar = this.findEle('[data-label="nav-list"]');
     this.buttonNewTask = this.findEle('[data-label="new-task-header"]');
     this.buttonBurger = this.findEle('[data-label="toggle-navigation"]');
+    this.elementSubnav = this.findEle('[data-label="sub-nav"]');
 
     // ########## [ TASK LIST]
     this.labelTaskListHeading = this.findEle('[data-label="task-list-title"]');
@@ -85,6 +93,10 @@ export default class View {
   }
   clearForm() {
     while (this.form.firstElementChild) this.form.firstElementChild.remove();
+  }
+  clearSubnav() {
+    while (this.elementSubnav.firstElementChild)
+      this.elementSubnav.firstElementChild.remove();
   }
 
   // ################## [ DOM INJECTION ] ##################
@@ -238,6 +250,17 @@ export default class View {
     }
     this.form.append(buttonContainer);
   };
+
+  buildSubnav() {
+    this.clearSubnav();
+    const projects = this.getProjects();
+    projects.forEach((project) => {
+      const projectElement = this.createEle('li', 'project-item');
+      projectElement.textContent = project.name;
+      projectElement.dataset.projectid = project.id;
+      this.elementSubnav.append(projectElement);
+    });
+  }
   // ###############[ HANDLERS ]###############
   // consider combining common event handlers into single functions
   // i.e., eventAddTask and eventAddProject both trigger on submit event
@@ -290,6 +313,7 @@ export default class View {
         if (this._projectDetails) {
           handler(this._projectDetails, type);
           this.toggleModal();
+          this.buildSubnav();
         }
       }
     });

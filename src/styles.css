@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* #################### [CUSTOM STYLES] ######################## */
+/* #################### [TAILWIND STYLES] ######################## */
 
 .visually-hidden {
   @apply whitespace-nowrap absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden border-none;
@@ -52,5 +52,8 @@
 }
 .form-button {
   @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
+}
+.project-item {
+  @apply p-3 rounded-lg hover:shadow-[inset_250px_0_0_0_rgba(0,0,0,0.03)] hover:cursor-pointer duration-500;
 }
 /* ######################### [END] ############################# */

@@ -27,6 +27,7 @@ class Controller {
     this.view.eventToggleNav();
     this.view.eventForm();
     this.view.eventNew();
+    this.view.buildSubnav();
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);
