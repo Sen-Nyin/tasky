@@ -80,10 +80,11 @@ export default class View {
 
   // ####################[ DOM TOGGLES ] ##################
 
-  toggleModal = () => {
-    this.form.reset();
-    this.elementOverlay.classList.toggle('hidden');
-  };
+  eventToggleNav() {
+    this.buttonBurger.addEventListener('click', (e) => {
+      this.elementNavContainer.classList.toggle('nav-hidden');
+    });
+  }
 
   // ####################[ DOM CLEARING ] ##################
 
@@ -187,6 +188,7 @@ export default class View {
       'bg-emerald-400',
       'hover:bg-emerald-500'
     );
+    submitButton.type = 'submit';
     submitButton.dataset.label = 'submit';
     submitButton.id = 'submit';
     submitButton.textContent = 'Submit';
@@ -270,15 +272,8 @@ export default class View {
     this.form.addEventListener('click', (e) => {
       const target = e.target;
       if (target.dataset.label === 'close-modal') {
-        e.preventDefault();
-        this.toggleModal();
+        this.elementModal.close();
       }
-    });
-  }
-
-  eventToggleNav() {
-    this.buttonBurger.addEventListener('click', (e) => {
-      this.elementNavContainer.classList.toggle('nav-hidden');
     });
   }
   eventNew() {
@@ -295,24 +290,21 @@ export default class View {
             : null;
         if (type) {
           this.buildModal(type);
-          this.toggleModal();
+          this.elementModal.showModal();
         }
       }
     });
   }
   eventAddTaskProject(handler) {
     this.form.addEventListener('submit', (e) => {
-      e.preventDefault();
       const type = e.submitter.dataset.subtype;
       if (type === 'task') {
         if (this._taskDetails) {
           handler(this._taskDetails, type);
-          this.toggleModal();
         }
       } else if (type === 'project') {
         if (this._projectDetails) {
           handler(this._projectDetails, type);
-          this.toggleModal();
           this.buildSubnav();
         }
       }
