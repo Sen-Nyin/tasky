@@ -260,6 +260,29 @@ export default class View {
       const projectElement = this.createEle('li', 'project-item');
       projectElement.textContent = project.name;
       projectElement.dataset.projectid = project.id;
+      if (project.id > 1) {
+        projectElement.dataset.projecttype = 'custom';
+        const deleteButton = this.createEle(
+          'button',
+          'p-1',
+          'text-zinc-700',
+          'rounded-full',
+          'hover:bg-red-500',
+          'hover:text-gray-50',
+          'duration-300'
+        );
+        deleteButton.dataset.label = 'delete-button';
+        const deleteIcon = this.createSVG(
+          'close',
+          'w-3',
+          'h-3',
+          'fill-current',
+          'hover:scale-125',
+          'duration-300'
+        );
+        deleteButton.append(deleteIcon);
+        projectElement.append(deleteButton);
+      }
       this.elementSubnav.append(projectElement);
     });
   }
@@ -324,6 +347,17 @@ export default class View {
       if (e.target.type === 'checkbox') {
         const id = Number(e.target.parentElement.dataset.taskid);
         handler(id);
+      }
+    });
+  }
+
+  eventDeleteProject(handler) {
+    this.elementSubnav.addEventListener('click', (e) => {
+      const button = e.target.closest('button');
+      if (button?.dataset.label === 'delete-button') {
+        const id = button.closest('li').dataset.projectid;
+        handler(Number(id));
+        this.buildSubnav();
       }
     });
   }

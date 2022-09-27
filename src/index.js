@@ -21,6 +21,7 @@ class Controller {
     this.view.eventAddTaskProject(this.handleAddTaskProject);
     this.view.eventDeleteTask(this.handleDeleteTask);
     this.view.eventCompleteTask(this.handleCompleteTask);
+    this.view.eventDeleteProject(this.handleDeleteProject);
     this.view.getProjects = this.handleProjectsRequest;
     this.model.eventOnTaskChange(this.onTaskChange);
     this.onTaskChange(this.model.tasks);
@@ -36,6 +37,7 @@ class Controller {
   handleDeleteTask = (id) => this.model.deleteTask(id);
   handleCompleteTask = (id) => this.model.completeTask(id);
   handleAddProject = (project) => this.model.addProject(project);
+  handleDeleteProject = (id) => this.model.deleteProject(id);
 }
 
 const tasky = new Controller(new Model(), new View());

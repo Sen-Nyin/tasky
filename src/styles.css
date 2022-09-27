@@ -54,6 +54,6 @@
   @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
 }
 .project-item {
-  @apply p-3 rounded-lg hover:shadow-[inset_250px_0_0_0_rgba(0,0,0,0.03)] hover:cursor-pointer duration-500;
+  @apply flex justify-between items-center p-3 rounded-lg hover:shadow-[inset_250px_0_0_0_rgba(0,0,0,0.03)] hover:cursor-pointer duration-500;
 }
 /* ######################### [END] ############################# */

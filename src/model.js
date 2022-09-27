@@ -46,7 +46,6 @@ export default class Model {
         name: details,
       };
       this.projects.push(project);
-      console.log(this.projects);
     }
   }
 
@@ -67,6 +66,23 @@ export default class Model {
           }
         : task
     );
+    this._commitTaskChange(this.tasks);
+  }
+
+  deleteProject(id) {
+    const toDelete = this.projects.filter((project) => project.id === id);
+    this.tasks = this.tasks.map((task) =>
+      task.project === toDelete[0].name
+        ? {
+            id: task.id,
+            task: task.task,
+            duedate: task.duedate,
+            project: 'uncategorised',
+            complete: task.complete,
+          }
+        : task
+    );
+    this.projects = this.projects.filter((project) => project.id !== id);
     this._commitTaskChange(this.tasks);
   }
 }
