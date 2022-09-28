@@ -24,15 +24,15 @@ export default class View {
     this.elementTaskList = this.findEle('[data-label="task-list"]');
 
     // ##########[ MODAL ]
-    this.buttonCloseModal = this.findEle('#close-modal');
+    // this.buttonCloseModal = this.findEle('#close-modal');
     this.labelModalTitle = this.findEle('[data-label="modal-title"]');
-    this.elementOverlay = this.findEle('[data-label="overlay"]');
+    // this.elementOverlay = this.findEle('[data-label="overlay"]');
     this.elementModal = this.findEle('[data-label="modal"]');
-    this.buttonFormSubmit = this.findEle('[data-label="submit"]');
+    // this.buttonFormSubmit = this.findEle('[data-label="submit"]');
     this.form = this.findEle('[data-label="modal-task-form"]');
-    this.formButtonContainer = this.findEle(
-      '[data-label="form-button-container"]'
-    );
+    // this.formButtonContainer = this.findEle(
+    //   '[data-label="form-button-container"]'
+    // );
   }
 
   // #################### [ FORM EVALUATION ] ##################
@@ -286,10 +286,7 @@ export default class View {
       this.elementSubnav.append(projectElement);
     });
   }
-  // ###############[ HANDLERS ]###############
-  // consider combining common event handlers into single functions
-  // i.e., eventAddTask and eventAddProject both trigger on submit event
-  // ##########################################
+  // ###############[ EVENTS ]###############
 
   eventForm() {
     this.form.addEventListener('click', (e) => {
