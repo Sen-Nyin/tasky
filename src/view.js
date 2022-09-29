@@ -177,7 +177,7 @@ export default class View {
     }
   }
 
-  buildModal = (type, data) => {
+  buildModal = (type, dataArr) => {
     this.clearForm();
 
     const buttonContainer = this.createEle(
@@ -210,9 +210,9 @@ export default class View {
     submitButton.textContent = 'Submit';
     submitButton.dataset.subtype = type;
 
-    buttonContainer.append(closeButton, submitButton);
     if (type === 'task' || type === 'edit') {
-      this.labelModalTitle.textContent = 'New Task';
+      this.labelModalTitle.textContent =
+        type === 'task' ? 'New Task' : 'Edit Task';
 
       const taskTitleInputLabel = this.createEle('label', 'form-label');
       taskTitleInputLabel.textContent = 'Task title';
@@ -246,10 +246,11 @@ export default class View {
       });
 
       if (type === 'edit') {
-        console.log(data);
-        taskTitleInput.value = data[0].task;
-        taskDueDateInput.value = data[0].duedate;
-        taskProjectInput.value = data[0].project;
+        const [data] = dataArr;
+        taskTitleInput.value = data.task;
+        taskDueDateInput.value = data.duedate;
+        taskProjectInput.value = data.project;
+        submitButton.dataset.taskid = data.id;
       }
 
       this.form.prepend(
@@ -272,6 +273,7 @@ export default class View {
       this.form.append(projectLabel, projectTitle);
     }
 
+    buttonContainer.append(closeButton, submitButton);
     this.form.append(buttonContainer);
     this.elementModal.showModal();
   };
@@ -349,10 +351,15 @@ export default class View {
           handler(this._projectDetails, type);
           this.buildSubnav();
         }
+      } else if (type === 'edit') {
+        if (this._taskDetails) {
+          const task = this._taskDetails;
+          task.id = Number(e.submitter.dataset.taskid);
+          handler(task, type);
+        }
       }
     });
   }
-
   eventClickToEditTask(handler) {
     this.elementTaskList.addEventListener('click', (e) => {
       const target = e.target;
@@ -380,7 +387,6 @@ export default class View {
       }
     });
   }
-
   eventDeleteProject(handler) {
     this.elementSubnav.addEventListener('click', (e) => {
       const button = e.target.closest('button');

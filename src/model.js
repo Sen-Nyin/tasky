@@ -32,29 +32,40 @@ export default class Model {
   }
   addTaskProject(details, type) {
     if (type === 'task') {
-      const task = {
-        id:
-          this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].id + 1 : 1,
-        task: details.title,
-        duedate: details.date,
-        project: details.project,
-        complete: false,
-      };
-      this.tasks.push(task);
-      this._commitTaskChange(this.tasks);
+      this.addTask(details);
     } else if (type === 'project') {
-      const project = {
-        id:
-          this.projects.length > 0
-            ? this.projects[this.projects.length - 1].id + 1
-            : 1,
-        name: details,
-      };
-      this.projects.push(project);
+      this.addProject(details);
+    } else if (type === 'edit') {
+      this.editTask(details);
     }
   }
-  editTask(id) {
-    // stuff
+
+  addTask(newTask) {
+    const task = {
+      id: this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].id + 1 : 1,
+      task: newTask.title,
+      duedate: newTask.date,
+      project: newTask.project,
+      complete: false,
+    };
+    this.tasks.push(task);
+    this._commitTaskChange(this.tasks);
+  }
+
+  editTask(editedTask) {
+    console.log(editedTask.id);
+    this.tasks = this.tasks.map((task) =>
+      task.id === editedTask.id
+        ? {
+            id: task.id,
+            task: editedTask.title,
+            duedate: editedTask.date,
+            project: editedTask.project,
+            complete: task.complete,
+          }
+        : task
+    );
+    this._commitTaskChange(this.tasks);
   }
   deleteTask(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
@@ -75,7 +86,16 @@ export default class Model {
     );
     this._commitTaskChange(this.tasks);
   }
-
+  addProject(newProject) {
+    const project = {
+      id:
+        this.projects.length > 0
+          ? this.projects[this.projects.length - 1].id + 1
+          : 1,
+      name: newProject,
+    };
+    this.projects.push(project);
+  }
   deleteProject(id) {
     const toDelete = this.projects.filter((project) => project.id === id);
     this.tasks = this.tasks.map((task) =>
