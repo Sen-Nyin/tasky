@@ -6,8 +6,6 @@ import './styles.css';
 import Model from './model';
 import View from './view';
 
-// ###################[END IMPORTS]###################
-
 // ###################[ CONTROLLER ]##################
 // Connects user input & logic with display
 // @param : model
@@ -18,7 +16,7 @@ class Controller {
   constructor(model, view) {
     this.view = view;
     this.model = model;
-    this.view.eventAddTaskProject(this.handleAddTaskProject);
+    this.view.eventUpdateLists(this.handleUpdateLists);
     this.view.eventDeleteTask(this.handleDeleteTask);
     this.view.eventCompleteTask(this.handleCompleteTask);
     this.view.eventDeleteProject(this.handleDeleteProject);
@@ -27,14 +25,14 @@ class Controller {
     this.model.eventOnTaskChange(this.onTaskChange);
     this.onTaskChange(this.model.tasks);
     this.view.eventToggleNav();
-    this.view.eventForm();
+    this.view.eventCloseModal();
     this.view.eventNew();
-    this.view.buildSubnav();
+    this.view.buildProjectList();
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);
   handleProjectsRequest = () => this.model._projects;
-  handleAddTaskProject = (item, type) => this.model.addTaskProject(item, type);
+  handleUpdateLists = (item, type) => this.model.updateLists(item, type);
   handleGetEditTask = (id) => this.model.getTaskToEdit(id);
   handleEditTask = (id) => this.model.editTask(id);
   handleDeleteTask = (id) => this.model.deleteTask(id);

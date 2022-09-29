@@ -1,38 +1,24 @@
 'use: strict';
 import sprite from './assets/sprite.svg';
 
-// ####################[ IMPORTS ]####################
-
-// ###################[END IMPORTS]###################
-
 // ######################[ VIEW ]####################
-// Controls the display
-//
-// ###################################################
 
 export default class View {
   constructor() {
-    this.elementHeader = this.findEle('header');
-    this.elementNavContainer = this.findEle('[data-label="nav-container"]');
-    this.elementNavbar = this.findEle('[data-label="nav-list"]');
-    this.buttonNewTask = this.findEle('[data-label="new-task-header"]');
-    this.buttonBurger = this.findEle('[data-label="toggle-navigation"]');
-    this.elementSubnav = this.findEle('[data-label="sub-nav"]');
+    this.header = this.findEle('header');
+    this.navContainer = this.findEle('[data-label="nav-container"]');
+    this.sidebar = this.findEle('[data-label="nav-list"]');
+    this.burgerBtn = this.findEle('[data-label="toggle-navigation"]');
+    this.projectList = this.findEle('[data-label="sub-nav"]');
 
     // ########## [ TASK LIST]
     this.labelTaskListHeading = this.findEle('[data-label="task-list-title"]');
-    this.elementTaskList = this.findEle('[data-label="task-list"]');
+    this.taskList = this.findEle('[data-label="task-list"]');
 
     // ##########[ MODAL ]
-    // this.buttonCloseModal = this.findEle('#close-modal');
-    this.labelModalTitle = this.findEle('[data-label="modal-title"]');
-    // this.elementOverlay = this.findEle('[data-label="overlay"]');
-    this.elementModal = this.findEle('[data-label="modal"]');
-    // this.buttonFormSubmit = this.findEle('[data-label="submit"]');
+    this.modalTitle = this.findEle('[data-label="modal-title"]');
+    this.modal = this.findEle('[data-label="modal"]');
     this.form = this.findEle('[data-label="modal-task-form"]');
-    // this.formButtonContainer = this.findEle(
-    //   '[data-label="form-button-container"]'
-    // );
   }
 
   // #################### [ FORM EVALUATION ] ##################
@@ -52,7 +38,7 @@ export default class View {
 
   get _projectDetails() {
     const projectTitle = this.findEle('[data-label="project-title"]');
-    return projectTitle.value;
+    if (projectTitle.value) return projectTitle.value;
   }
 
   // #################### [ UTILITY FUNCTIONS ] ##################
@@ -79,36 +65,25 @@ export default class View {
   }
 
   // ####################[ DOM TOGGLES ] ##################
-
   eventToggleNav() {
-    this.buttonBurger.addEventListener('click', (e) => {
-      this.elementNavContainer.classList.toggle('nav-hidden');
+    this.burgerBtn.addEventListener('click', (e) => {
+      this.navContainer.classList.toggle('nav-hidden');
     });
   }
 
   // ####################[ DOM CLEARING ] ##################
-
-  clearTasks() {
-    while (this.elementTaskList.firstElementChild)
-      this.elementTaskList.firstElementChild.remove();
-  }
-  clearForm() {
-    while (this.form.firstElementChild) this.form.firstElementChild.remove();
-  }
-  clearSubnav() {
-    while (this.elementSubnav.firstElementChild)
-      this.elementSubnav.firstElementChild.remove();
-  }
+  clear = (target) => {
+    while (target.firstElementChild) target.firstElementChild.remove();
+  };
 
   // ################## [ DOM INJECTION ] ##################
-
   displayTasks(tasks) {
-    this.clearTasks();
+    this.clear(this.taskList);
 
     if (!tasks.length) {
       const message = this.createEle('p', 'no-tasks-message');
       message.textContent = 'No tasks, go take a walk';
-      this.elementTaskList.append(message);
+      this.taskList.append(message);
     } else {
       tasks.forEach((task) => {
         const alarmIcon = this.createSVG('alarm', 'tasklist-icon');
@@ -172,13 +147,13 @@ export default class View {
           taskDate,
           taskProject
         );
-        this.elementTaskList.append(taskElement);
+        this.taskList.append(taskElement);
       });
     }
   }
 
   buildModal = (type, dataArr) => {
-    this.clearForm();
+    this.clear(this.form);
 
     const buttonContainer = this.createEle(
       'div',
@@ -211,8 +186,7 @@ export default class View {
     submitButton.dataset.subtype = type;
 
     if (type === 'task' || type === 'edit') {
-      this.labelModalTitle.textContent =
-        type === 'task' ? 'New Task' : 'Edit Task';
+      this.modalTitle.textContent = type === 'task' ? 'New Task' : 'Edit Task';
 
       const taskTitleInputLabel = this.createEle('label', 'form-label');
       taskTitleInputLabel.textContent = 'Task title';
@@ -262,7 +236,7 @@ export default class View {
         taskProjectInput
       );
     } else if (type === 'project') {
-      this.labelModalTitle.textContent = 'New Project';
+      this.modalTitle.textContent = 'New Project';
       const projectLabel = this.createEle('label', 'form-label');
       projectLabel.textContent = 'Project name';
       projectLabel.for = 'project-title';
@@ -275,11 +249,11 @@ export default class View {
 
     buttonContainer.append(closeButton, submitButton);
     this.form.append(buttonContainer);
-    this.elementModal.showModal();
+    this.modal.showModal();
   };
 
-  buildSubnav() {
-    this.clearSubnav();
+  buildProjectList() {
+    this.clear(this.projectList);
     const projects = this.getProjects();
     projects.forEach((project) => {
       const projectElement = this.createEle('li', 'project-item');
@@ -308,21 +282,21 @@ export default class View {
         deleteButton.append(deleteIcon);
         projectElement.append(deleteButton);
       }
-      this.elementSubnav.append(projectElement);
+      this.projectList.append(projectElement);
     });
   }
   // ###############[ EVENTS ]###############
 
-  eventForm() {
+  eventCloseModal() {
     this.form.addEventListener('click', (e) => {
       const target = e.target;
       if (target.dataset.label === 'close-modal') {
-        this.elementModal.close();
+        this.modal.close();
       }
     });
   }
   eventNew() {
-    this.elementHeader.addEventListener('click', (e) => {
+    this.header.addEventListener('click', (e) => {
       e.preventDefault();
       const datalabel = e.target.closest('button')?.dataset.label;
 
@@ -339,7 +313,7 @@ export default class View {
       }
     });
   }
-  eventAddTaskProject(handler) {
+  eventUpdateLists(handler) {
     this.form.addEventListener('submit', (e) => {
       const type = e.submitter.dataset.subtype;
       if (type === 'task') {
@@ -349,7 +323,7 @@ export default class View {
       } else if (type === 'project') {
         if (this._projectDetails) {
           handler(this._projectDetails, type);
-          this.buildSubnav();
+          this.buildProjectList();
         }
       } else if (type === 'edit') {
         if (this._taskDetails) {
@@ -361,7 +335,7 @@ export default class View {
     });
   }
   eventClickToEditTask(handler) {
-    this.elementTaskList.addEventListener('click', (e) => {
+    this.taskList.addEventListener('click', (e) => {
       const target = e.target;
       if (target.closest('button')?.dataset.label === 'edit-button') {
         const id = Number(target.closest('li').dataset.taskid);
@@ -371,7 +345,7 @@ export default class View {
     });
   }
   eventDeleteTask(handler) {
-    this.elementTaskList.addEventListener('click', (e) => {
+    this.taskList.addEventListener('click', (e) => {
       const target = e.target;
       if (target.closest('button')?.dataset.label === 'delete-button') {
         const id = Number(target.closest('li').dataset.taskid);
@@ -380,7 +354,7 @@ export default class View {
     });
   }
   eventCompleteTask(handler) {
-    this.elementTaskList.addEventListener('change', (e) => {
+    this.taskList.addEventListener('change', (e) => {
       if (e.target.type === 'checkbox') {
         const id = Number(e.target.parentElement.dataset.taskid);
         handler(id);
@@ -388,12 +362,12 @@ export default class View {
     });
   }
   eventDeleteProject(handler) {
-    this.elementSubnav.addEventListener('click', (e) => {
+    this.projectList.addEventListener('click', (e) => {
       const button = e.target.closest('button');
       if (button?.dataset.label === 'delete-button') {
         const id = button.closest('li').dataset.projectid;
         handler(Number(id));
-        this.buildSubnav();
+        this.buildProjectList();
       }
     });
   }

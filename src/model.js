@@ -1,13 +1,6 @@
 'use: strict';
 
-// ####################[ IMPORTS ]####################
-
-// ###################[END IMPORTS]###################
-
 // ######################[ MODEL ]####################
-// Controls data
-//
-// ###################################################
 
 export default class Model {
   constructor() {
@@ -30,7 +23,7 @@ export default class Model {
   _commitTaskChange(tasks) {
     this.onTaskChange(tasks);
   }
-  addTaskProject(details, type) {
+  updateLists(details, type) {
     if (type === 'task') {
       this.addTask(details);
     } else if (type === 'project') {
@@ -53,7 +46,6 @@ export default class Model {
   }
 
   editTask(editedTask) {
-    console.log(editedTask.id);
     this.tasks = this.tasks.map((task) =>
       task.id === editedTask.id
         ? {
@@ -97,9 +89,9 @@ export default class Model {
     this.projects.push(project);
   }
   deleteProject(id) {
-    const toDelete = this.projects.filter((project) => project.id === id);
+    const [toDelete] = this.projects.filter((project) => project.id === id);
     this.tasks = this.tasks.map((task) =>
-      task.project === toDelete[0].name
+      task.project === toDelete.name
         ? {
             id: task.id,
             task: task.task,
