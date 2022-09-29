@@ -19,6 +19,11 @@ export default class Model {
     return this.projects;
   }
 
+  getTaskToEdit(id) {
+    const edittask = this.tasks.filter((task) => task.id === id);
+    return edittask;
+  }
+
   eventOnTaskChange(handler) {
     this.onTaskChange = handler;
   }
@@ -48,7 +53,9 @@ export default class Model {
       this.projects.push(project);
     }
   }
-
+  editTask(id) {
+    // stuff
+  }
   deleteTask(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
     this._commitTaskChange(this.tasks);

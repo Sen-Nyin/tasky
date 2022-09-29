@@ -35,11 +35,20 @@
 .tasklist-icon {
   @apply fill-current w-4 h-4;
 }
-.tasklist-delete-icon {
+.tasklist-button-icon {
   @apply w-5 h-5 fill-current;
 }
-.tasklist-delete-btn {
-  @apply col-start-3 row-start-1 justify-self-end p-1 rounded-full text-gray-50 bg-red-400 hover:bg-red-500 hover:scale-105 hover:shadow-md duration-300;
+.tasklist-btn {
+  @apply p-1 rounded-full  hover:scale-105 hover:shadow-md duration-300;
+}
+.red-btn {
+  @apply text-gray-50 bg-red-400  hover:bg-red-500;
+}
+.yellow-btn {
+  @apply text-zinc-700 bg-amber-400 hover:bg-amber-500;
+}
+.tasklist-button-wrapper {
+  @apply col-start-3 row-start-1 flex gap-2 justify-end;
 }
 .task-complete {
   @apply text-gray-400 line-through duration-500;
@@ -56,4 +65,5 @@
 .project-item {
   @apply flex justify-between items-center p-3 rounded-lg hover:shadow-[inset_250px_0_0_0_rgba(0,0,0,0.03)] hover:cursor-pointer duration-500;
 }
+
 /* ######################### [END] ############################# */

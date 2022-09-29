@@ -113,7 +113,8 @@ export default class View {
       tasks.forEach((task) => {
         const alarmIcon = this.createSVG('alarm', 'tasklist-icon');
         const labelIcon = this.createSVG('label', 'tasklist-icon');
-        const deleteIcon = this.createSVG('delete', 'tasklist-delete-icon');
+        const deleteIcon = this.createSVG('delete', 'tasklist-button-icon');
+        const editIcon = this.createSVG('edit', 'tasklist-button-icon');
 
         const taskElement = this.createEle('li', 'tasklist-item');
         taskElement.dataset.taskid = task.id;
@@ -136,10 +137,24 @@ export default class View {
           'mr-6'
         );
         checkbox.type = 'checkbox';
-
-        const deleteButton = this.createEle('button', 'tasklist-delete-btn');
+        const buttonWrapper = this.createEle('div', 'tasklist-button-wrapper');
+        const deleteButton = this.createEle(
+          'button',
+          'tasklist-btn',
+          'red-btn'
+        );
         deleteButton.append(deleteIcon);
         deleteButton.dataset.label = 'delete-button';
+
+        const editButton = this.createEle(
+          'button',
+          'tasklist-btn',
+          'yellow-btn'
+        );
+        editButton.append(editIcon);
+        editButton.dataset.label = 'edit-button';
+
+        buttonWrapper.append(editButton, deleteButton);
 
         if (task.complete) {
           taskElement.classList.add('bg-emerald-100');
@@ -153,7 +168,7 @@ export default class View {
         taskElement.append(
           checkbox,
           taskText,
-          deleteButton,
+          buttonWrapper,
           taskDate,
           taskProject
         );
@@ -162,8 +177,9 @@ export default class View {
     }
   }
 
-  buildModal = (type) => {
+  buildModal = (type, data) => {
     this.clearForm();
+
     const buttonContainer = this.createEle(
       'div',
       'flex',
@@ -192,9 +208,10 @@ export default class View {
     submitButton.dataset.label = 'submit';
     submitButton.id = 'submit';
     submitButton.textContent = 'Submit';
+    submitButton.dataset.subtype = type;
 
     buttonContainer.append(closeButton, submitButton);
-    if (type === 'task') {
+    if (type === 'task' || type === 'edit') {
       this.labelModalTitle.textContent = 'New Task';
 
       const taskTitleInputLabel = this.createEle('label', 'form-label');
@@ -228,7 +245,12 @@ export default class View {
         taskProjectInput.append(option);
       });
 
-      submitButton.dataset.subtype = 'task';
+      if (type === 'edit') {
+        console.log(data);
+        taskTitleInput.value = data[0].task;
+        taskDueDateInput.value = data[0].duedate;
+        taskProjectInput.value = data[0].project;
+      }
 
       this.form.prepend(
         taskTitleInputLabel,
@@ -248,9 +270,10 @@ export default class View {
       projectTitle.type = 'text';
       projectTitle.id = 'project-title';
       this.form.append(projectLabel, projectTitle);
-      submitButton.dataset.subtype = 'project';
     }
+
     this.form.append(buttonContainer);
+    this.elementModal.showModal();
   };
 
   buildSubnav() {
@@ -310,7 +333,6 @@ export default class View {
             : null;
         if (type) {
           this.buildModal(type);
-          this.elementModal.showModal();
         }
       }
     });
@@ -330,10 +352,21 @@ export default class View {
       }
     });
   }
+
+  eventClickToEditTask(handler) {
+    this.elementTaskList.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.closest('button')?.dataset.label === 'edit-button') {
+        const id = Number(target.closest('li').dataset.taskid);
+        const task = handler(id);
+        this.buildModal('edit', task);
+      }
+    });
+  }
   eventDeleteTask(handler) {
     this.elementTaskList.addEventListener('click', (e) => {
       const target = e.target;
-      if (target.closest('button').dataset.label === 'delete-button') {
+      if (target.closest('button')?.dataset.label === 'delete-button') {
         const id = Number(target.closest('li').dataset.taskid);
         handler(id);
       }
