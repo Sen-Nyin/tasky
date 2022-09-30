@@ -18,7 +18,7 @@
   @apply w-5 h-5 fill-current;
 }
 .tasklist-item {
-  @apply grid grid-cols-[max-content_1fr_max-content] gap-2 font-light text-xs rounded-md shadow-md  p-4 hover:shadow-[inset_0_-90px_0_0_rgba(0,0,0,0.03)] duration-500;
+  @apply grid grid-cols-[max-content_1fr_max-content] gap-2 border-b font-light text-xs rounded-md p-4 hover:shadow-[inset_0_-90px_0_0_rgba(0,0,0,0.03)] duration-500;
 }
 .nav-hidden {
   @apply -translate-x-full;

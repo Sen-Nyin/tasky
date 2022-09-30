@@ -102,7 +102,31 @@ export default class View {
         taskText.textContent = task.task;
 
         const taskDate = this.createEle('span', 'tasklist-date');
-        taskDate.textContent = task.duedate;
+        if (new Date().toDateString() > new Date(task.duedate).toDateString()) {
+          const days = Math.round(
+            Math.abs(
+              (new Date() - new Date(task.duedate)) / (1000 * 60 * 60 * 24)
+            )
+          );
+          taskDate.textContent = `${days} ${days > 1 ? 'days' : 'day'} overdue`;
+          taskDate.classList.add('text-red-500');
+        } else if (
+          new Date().toDateString() === new Date(task.duedate).toDateString()
+        ) {
+          taskDate.textContent = 'Today!';
+        } else {
+          const days = Math.round(
+            Math.abs(
+              (new Date(task.duedate) - new Date()) / (1000 * 60 * 60 * 24)
+            )
+          );
+          if (days === 0) {
+            taskDate.textContent = 'Due tomorrow';
+          } else {
+            taskDate.textContent = task.duedate;
+          }
+        }
+
         taskDate.prepend(alarmIcon);
 
         const taskProject = this.createEle('span', 'tasklist-project');
@@ -137,6 +161,7 @@ export default class View {
 
         if (task.complete) {
           taskElement.classList.add('bg-emerald-100');
+          taskElement.classList.remove('bg-gray-200');
           checkbox.checked = true;
           checkbox.classList.add('accent-emerald-400');
           taskText.classList.add('task-complete');
@@ -260,8 +285,12 @@ export default class View {
     this.clear(this.projectList);
     projects.forEach((project) => {
       const projectElement = this.createEle('li', 'project-item');
-      projectElement.textContent = project.name;
+      const projectName = this.createEle('p');
+      projectName.textContent = project.name;
       projectElement.dataset.projectid = project.id;
+      projectElement.dataset.label = 'filter';
+      projectElement.dataset.filter = project.name;
+      projectElement.append(projectName);
       if (project.id > 1) {
         projectElement.dataset.projecttype = 'custom';
         const deleteButton = this.createEle(
@@ -361,6 +390,14 @@ export default class View {
       if (button?.dataset.label === 'delete-button') {
         const id = button.closest('li').dataset.projectid;
         handler(Number(id));
+      }
+    });
+  }
+  eventFilter(handler) {
+    this.sidebar.addEventListener('click', (e) => {
+      if (e.target.closest('li')?.dataset.label === 'filter') {
+        const filter = e.target.closest('li').dataset.filter;
+        handler(filter);
       }
     });
   }

@@ -30,6 +30,8 @@ class Controller {
     this.view.eventCloseModal();
     this.view.eventNewProject();
     this.view.eventNewTask();
+    this.view.eventFilter(this.handleFilterTasks);
+    this.filter = 'all';
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);
@@ -42,6 +44,7 @@ class Controller {
   handleCompleteTask = (id) => this.model.completeTask(id);
   handleAddProject = (project) => this.model.addProject(project);
   handleDeleteProject = (id) => this.model.deleteProject(id);
+  handleFilterTasks = (filter) => this.model.filterTaskList(filter);
 }
 
 const tasky = new Controller(new Model(), new View());

@@ -19,6 +19,32 @@ export default class Model {
     return edittask;
   }
 
+  filterTaskList(filter) {
+    let tasks;
+    if (filter === 'all') {
+      tasks = this.tasks;
+    } else if (filter === 'today') {
+      const today = new Date().toDateString();
+      console.log('Today: ', today);
+      tasks = this.tasks.filter(
+        (task) => new Date(task.duedate).toDateString() === today
+      );
+    } else if (filter === 'upcoming') {
+      const today = new Date().toDateString();
+      tasks = this.tasks.filter(
+        (task) => new Date(task.duedate).toDateString() > today
+      );
+    } else if (filter === 'overdue') {
+      const today = new Date().toDateString();
+      tasks = this.tasks.filter(
+        (task) => today > new Date(task.duedate).toDateString()
+      );
+    } else {
+      tasks = this.tasks.filter((task) => task.project === filter);
+    }
+    this.onTaskChange(tasks);
+  }
+
   eventOnTaskChange(handler) {
     this.onTaskChange = handler;
   }
