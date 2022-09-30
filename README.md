@@ -16,12 +16,37 @@ I also decided to learn Tailwind with this project, so all styling has been deve
 
 ## Difficulties faced
 
-To be confirmed once the project has been completed.
+MVC was difficult to grasp - specifically how the three objects passed functions and information between each other, however I feel that I've got this concept nailed down now in this project.
 
 ## User Guide
 
-To be confirmed.
+### Add a task or project
+
+Simply click the Add Task or Add Project buttons. The Add Task button can be found above the main task area. The Add Project button can be found below the project list in the side bar.
+
+### Edit or Delete a task
+
+Each task added has its own buttons for Edit (yellow) and Delete (red).
+
+To edit, click the edit button and make the changes in the modal that appears. Hit submit to save the changes or cancel to abandon.
+
+To delete, click the delete button. This is permanent and instant.
+
+### Delete a project
+
+When you add a project it will be added to the project list in the side bar. To the right of each project name is a delete button represented by a small X. Click this to delete. Deletion is instant.
+
+### Complete a task
+
+Each task in the task list has a checkbox to mark the task as completed.
+
+## Misc Features
+
+- When deleting a project, any tasks added to the project are automatically re-assigned to 'uncategorised'.
+- Marking a task as complete sorts it to the bottom of the task list.
+- When overdue, instead of the due date, it will show how many days overdue.
+- When due today or tomorrow, those words will be displayed instead of the due date.
 
 ## Images
 
-All icons are from icomoon.
+All icons are from [icomoon](https://icomoon.io/app/#/select).
