@@ -19,6 +19,12 @@ export default class Model {
     return edittask;
   }
 
+  compare(a, b) {
+    if (a.complete > b.complete) return 1;
+    if (a.complete < b.complete) return -1;
+    return 0;
+  }
+
   filterTaskList(filter) {
     let tasks;
     if (filter === 'all') {
@@ -37,11 +43,13 @@ export default class Model {
     } else if (filter === 'overdue') {
       const today = new Date().toDateString();
       tasks = this.tasks.filter(
-        (task) => today > new Date(task.duedate).toDateString()
+        (task) =>
+          today > new Date(task.duedate).toDateString() && !task.complete
       );
     } else {
       tasks = this.tasks.filter((task) => task.project === filter);
     }
+    tasks.sort(this.compare);
     this.onTaskChange(tasks);
   }
 
@@ -112,6 +120,7 @@ export default class Model {
           }
         : task
     );
+    this.tasks.sort(this.compare);
     this._commitTaskChange(this.tasks);
   }
   addProject(newProject) {
