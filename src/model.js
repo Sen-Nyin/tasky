@@ -4,8 +4,10 @@
 
 export default class Model {
   constructor() {
-    this.tasks = [];
-    this.projects = [{ id: 1, name: 'uncategorised' }];
+    this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [
+      { id: 1, name: 'uncategorised' },
+    ];
   }
 
   get _projects() {
@@ -20,8 +22,16 @@ export default class Model {
   eventOnTaskChange(handler) {
     this.onTaskChange = handler;
   }
+  eventOnProjectChange(handler) {
+    this.onProjectChange = handler;
+  }
   _commitTaskChange(tasks) {
     this.onTaskChange(tasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+  _commitProjectChange(projects) {
+    this.onProjectChange(projects);
+    localStorage.setItem('projects', JSON.stringify(projects));
   }
   updateLists(details, type) {
     if (type === 'task') {
@@ -87,6 +97,7 @@ export default class Model {
       name: newProject,
     };
     this.projects.push(project);
+    this._commitProjectChange(this.projects);
   }
   deleteProject(id) {
     const [toDelete] = this.projects.filter((project) => project.id === id);
@@ -103,5 +114,6 @@ export default class Model {
     );
     this.projects = this.projects.filter((project) => project.id !== id);
     this._commitTaskChange(this.tasks);
+    this._commitProjectChange(this.projects);
   }
 }

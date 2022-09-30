@@ -24,13 +24,16 @@ class Controller {
     this.view.getProjects = this.handleProjectsRequest;
     this.model.eventOnTaskChange(this.onTaskChange);
     this.onTaskChange(this.model.tasks);
+    this.model.eventOnProjectChange(this.onProjectChange);
+    this.onProjectChange(this.model.projects);
+
     this.view.eventToggleNav();
     this.view.eventCloseModal();
     this.view.eventNew();
-    this.view.buildProjectList();
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);
+  onProjectChange = (projects) => this.view.displayProjects(projects);
   handleProjectsRequest = () => this.model._projects;
   handleUpdateLists = (item, type) => this.model.updateLists(item, type);
   handleGetEditTask = (id) => this.model.getTaskToEdit(id);

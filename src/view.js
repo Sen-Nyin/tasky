@@ -252,9 +252,8 @@ export default class View {
     this.modal.showModal();
   };
 
-  buildProjectList() {
+  displayProjects(projects) {
     this.clear(this.projectList);
-    const projects = this.getProjects();
     projects.forEach((project) => {
       const projectElement = this.createEle('li', 'project-item');
       projectElement.textContent = project.name;
@@ -323,7 +322,7 @@ export default class View {
       } else if (type === 'project') {
         if (this._projectDetails) {
           handler(this._projectDetails, type);
-          this.buildProjectList();
+          // this.displayProjects();
         }
       } else if (type === 'edit') {
         if (this._taskDetails) {
@@ -367,7 +366,7 @@ export default class View {
       if (button?.dataset.label === 'delete-button') {
         const id = button.closest('li').dataset.projectid;
         handler(Number(id));
-        this.buildProjectList();
+        // this.displayProjects();
       }
     });
   }
