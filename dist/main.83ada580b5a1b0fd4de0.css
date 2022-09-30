@@ -647,11 +647,11 @@ video {
 .gap-4 {
   gap: 1rem;
 }
-.gap-2 {
-  gap: 0.5rem;
-}
 .gap-1 {
   gap: 0.25rem;
+}
+.gap-2 {
+  gap: 0.5rem;
 }
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -725,14 +725,14 @@ video {
 .p-4 {
   padding: 1rem;
 }
+.p-2 {
+  padding: 0.5rem;
+}
 .p-3 {
   padding: 0.75rem;
 }
 .p-0 {
   padding: 0px;
-}
-.p-2 {
-  padding: 0.5rem;
 }
 .p-1 {
   padding: 0.25rem;
@@ -741,17 +741,17 @@ video {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -889,7 +889,13 @@ video {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem;
+  padding: 0.5rem;
+}
+@media (min-width: 1460px) {
+
+  .sidebar-link {
+    padding: 0.75rem;
+  }
 }
 .sidebar-svg {
   height: 1.25rem;
@@ -1175,6 +1181,18 @@ label:has(input[type='radio']:not(:checked)) {
   .\32xl\:translate-x-0 {
     --tw-translate-x: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .\32xl\:gap-2 {
+    gap: 0.5rem;
+  }
+
+  .\32xl\:gap-4 {
+    gap: 1rem;
+  }
+
+  .\32xl\:p-6 {
+    padding: 1.5rem;
   }
 }
 
