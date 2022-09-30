@@ -45,13 +45,13 @@
   @apply p-1 rounded-full  hover:scale-105 hover:shadow-md duration-300;
 }
 .red-btn {
-  @apply text-gray-50 bg-red-400  hover:bg-red-500;
+  @apply text-gray-50 bg-red-500  hover:bg-red-600 cursor-pointer;
 }
 .yellow-btn {
-  @apply text-zinc-700 bg-amber-400 hover:bg-amber-500;
+  @apply text-zinc-700 bg-amber-400 hover:bg-amber-500 cursor-pointer;
 }
 .green-btn {
-  @apply text-white bg-emerald-500 hover:bg-emerald-600;
+  @apply text-white bg-emerald-500 hover:bg-emerald-600 cursor-pointer;
 }
 .tasklist-button-wrapper {
   @apply col-start-3 row-start-1 flex gap-2 justify-end;
@@ -82,3 +82,7 @@
 }
 
 /* ######################### [END] ############################# */
+
+label:has(input[type='radio']:not(:checked)) {
+  opacity: 0.3;
+}

@@ -31,10 +31,18 @@ export default class View {
     const title = this.findEle('[data-label="modal-task-title"]');
     const date = this.findEle('[data-label="modal-task-date"]');
     const project = this.findEle('[data-label="modal-task-project"]');
-    if (title.value && date.value && project.value) {
+    const priorities = this.findEles('input[name="priority"]');
+    let selectedPriority;
+    priorities.forEach((priority) => {
+      if (priority.checked) {
+        selectedPriority = priority.closest('label').textContent;
+      }
+    });
+    if (title.value && date.value && selectedPriority && project.value) {
       return {
         title: title.value,
         date: date.value,
+        priority: selectedPriority,
         project: project.value,
       };
     }
@@ -65,6 +73,10 @@ export default class View {
   }
   findEle(selector) {
     const element = document.querySelector(selector);
+    return element;
+  }
+  findEles(selector) {
+    const element = document.querySelectorAll(selector);
     return element;
   }
   capitalise(str) {
@@ -100,6 +112,12 @@ export default class View {
 
         const taskElement = this.createEle('li', 'tasklist-item');
         taskElement.dataset.taskid = task.id;
+
+        if (task.priority === 'High')
+          taskElement.classList.add('high-priority');
+        if (task.priority === 'Medium')
+          taskElement.classList.add('medium-priority');
+        if (task.priority === 'Low') taskElement.classList.add('low-priority');
 
         const taskText = this.createEle('span', 'tasklist-text');
         taskText.textContent = task.task;
@@ -251,12 +269,72 @@ export default class View {
         taskProjectInput.append(option);
       });
 
+      const priorityBox = this.createEle(
+        'div',
+        'flex',
+        'gap-2',
+        'justify-center',
+        'mb-4'
+      );
+      const priorityLabel = this.createEle('p', 'form-label');
+      priorityLabel.textContent = 'Priority';
+      const labelHighPrio = this.createEle(
+        'label',
+        'max-w-max',
+        'rounded-md',
+        'p-2',
+        'red-btn'
+      );
+      labelHighPrio.for = 'priority';
+      labelHighPrio.textContent = 'High';
+      const radioHighPrio = this.createEle('input', 'w-0', 'h-0');
+      radioHighPrio.type = 'radio';
+      radioHighPrio.name = 'priority';
+      radioHighPrio.value = 'High';
+      labelHighPrio.append(radioHighPrio);
+
+      const labelMediumPrio = this.createEle(
+        'label',
+        'max-w-max',
+        'rounded-md',
+        'p-2',
+        'yellow-btn'
+      );
+      labelMediumPrio.for = 'priority';
+      labelMediumPrio.textContent = 'Medium';
+      const radioMediumPrio = this.createEle('input', 'w-0', 'h-0');
+      radioMediumPrio.type = 'radio';
+      radioMediumPrio.name = 'priority';
+      radioMediumPrio.value = 'Medium';
+      labelMediumPrio.append(radioMediumPrio);
+
+      const labelLowPrio = this.createEle(
+        'label',
+        'max-w-max',
+        'rounded-md',
+        'p-2',
+        'green-btn'
+      );
+      labelLowPrio.for = 'priority';
+      labelLowPrio.textContent = 'Low';
+      const radioLowPrio = this.createEle('input', 'w-0', 'h-0');
+      radioLowPrio.type = 'radio';
+      radioLowPrio.name = 'priority';
+      radioLowPrio.value = 'Low';
+      labelLowPrio.append(radioLowPrio);
+
+      priorityBox.append(labelHighPrio, labelMediumPrio, labelLowPrio);
+
       if (type === 'edit') {
         const [data] = dataArr;
         taskTitleInput.value = data.task;
         taskDueDateInput.value = data.duedate;
         taskProjectInput.value = data.project;
         submitButton.dataset.taskid = data.id;
+        console.log(data);
+        if (data.priority === 'High') radioHighPrio.checked = true;
+        if (data.priority === 'Medium') radioMediumPrio.checked = true;
+        if (data.priority === 'Low') radioLowPrio.checked = true;
       }
 
       this.form.prepend(
@@ -264,6 +342,8 @@ export default class View {
         taskTitleInput,
         taskDueDateInputLabel,
         taskDueDateInput,
+        priorityLabel,
+        priorityBox,
         taskProjectInputLabel,
         taskProjectInput
       );

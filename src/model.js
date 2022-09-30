@@ -82,6 +82,7 @@ export default class Model {
       id: this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].id + 1 : 1,
       task: newTask.title,
       duedate: newTask.date,
+      priority: newTask.priority,
       project: newTask.project,
       complete: false,
     };
@@ -96,6 +97,7 @@ export default class Model {
             id: task.id,
             task: editedTask.title,
             duedate: editedTask.date,
+            priority: editedTask.priority,
             project: editedTask.project,
             complete: task.complete,
           }
