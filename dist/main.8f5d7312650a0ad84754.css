@@ -585,6 +585,9 @@ video {
 .h-full {
   height: 100%;
 }
+.h-0 {
+  height: 0px;
+}
 .h-3 {
   height: 0.75rem;
 }
@@ -605,11 +608,19 @@ video {
 .w-64 {
   width: 16rem;
 }
+.w-0 {
+  width: 0px;
+}
 .w-3 {
   width: 0.75rem;
 }
 .max-w-6xl {
   max-width: 72rem;
+}
+.max-w-max {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -719,6 +730,9 @@ video {
 }
 .p-0 {
   padding: 0px;
+}
+.p-2 {
+  padding: 0.5rem;
 }
 .p-1 {
   padding: 0.25rem;
@@ -961,16 +975,18 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0,0,0,0)), var(--tw-ring-shadow, 0 0 rgba(0,0,0,0)), var(--tw-shadow);
 }
 .red-btn {
+  cursor: pointer;
   --tw-bg-opacity: 1;
-  background-color: rgba(248, 113, 113, var(--tw-bg-opacity));
+  background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgba(249, 250, 251, var(--tw-text-opacity));
 }
 .red-btn:hover {
   --tw-bg-opacity: 1;
-  background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
+  background-color: rgba(220, 38, 38, var(--tw-bg-opacity));
 }
 .yellow-btn {
+  cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgba(251, 191, 36, var(--tw-bg-opacity));
   --tw-text-opacity: 1;
@@ -981,6 +997,7 @@ video {
   background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
 }
 .green-btn {
+  cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
   --tw-text-opacity: 1;
@@ -1062,6 +1079,14 @@ video {
 }
 
 /* ######################### [END] ############################# */
+
+label[\:has\(input\[type\%3D'radio'\]\:not\(\:checked\)\)] {
+  opacity: 0.3;
+}
+
+label:has(input[type='radio']:not(:checked)) {
+  opacity: 0.3;
+}
 
 .backdrop\:bg-zinc-700::-webkit-backdrop {
   --tw-bg-opacity: 1;
