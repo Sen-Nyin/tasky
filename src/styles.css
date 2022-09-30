@@ -69,7 +69,7 @@
   @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
 }
 .project-item {
-  @apply flex justify-between items-center p-3 hover:shadow-[inset_250px_0_0_0_rgba(219,234,254)] hover:text-zinc-700 hover:cursor-pointer duration-500;
+  @apply flex justify-between items-center p-2 2xl:p-3 hover:shadow-[inset_250px_0_0_0_rgba(219,234,254)] hover:text-zinc-700 hover:cursor-pointer duration-500;
 }
 .high-priority {
   @apply border-l-8 border-l-red-400;
