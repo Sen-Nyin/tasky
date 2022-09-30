@@ -67,6 +67,9 @@ export default class View {
     const element = document.querySelector(selector);
     return element;
   }
+  capitalise(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   // ####################[ DOM TOGGLES ] ##################
   eventToggleNav() {
@@ -397,6 +400,7 @@ export default class View {
     this.sidebar.addEventListener('click', (e) => {
       if (e.target.closest('li')?.dataset.label === 'filter') {
         const filter = e.target.closest('li').dataset.filter;
+        this.labelTaskListHeading.textContent = this.capitalise(filter);
         handler(filter);
       }
     });
