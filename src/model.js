@@ -46,6 +46,8 @@ export default class Model {
         (task) =>
           today > new Date(task.duedate).toDateString() && !task.complete
       );
+    } else if (filter === 'High' || filter === 'Medium' || filter === 'Low') {
+      tasks = this.tasks.filter((task) => task.priority === filter);
     } else {
       tasks = this.tasks.filter((task) => task.project === filter);
     }
