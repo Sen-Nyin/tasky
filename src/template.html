@@ -23,36 +23,6 @@
 
       <h1 class="flex-1 font-medium">Tasky</h1>
 
-      <!-- ADD TASK BUTTON -->
-
-      <button
-        data-label="new-task-header"
-        class="flex items-center gap-1 py-1 px-2 border text-gray-50 hover:bg-gray-50 hover:text-gray-600 text-xs font-bold uppercase rounded-full duration-200"
-      >
-        <svg
-          aria-label="add task button"
-          class="fill-current w-4 h-4 hover:scale-125 duration-200"
-          data-label="addtaskbtn"
-        >
-          <use href="./assets/sprite.svg#icon-add"></use>
-        </svg>
-        <p>Task</p>
-      </button>
-
-      <button
-        data-label="new-project-header"
-        class="flex items-center gap-1 py-1 px-2 border text-gray-50 hover:bg-gray-50 hover:text-gray-600 text-xs font-bold uppercase rounded-full duration-200"
-      >
-        <svg
-          aria-label="add project button"
-          class="fill-current w-4 h-4 hover:scale-125 duration-200"
-          data-label="addprojectbtn"
-        >
-          <use href="./assets/sprite.svg#icon-add"></use>
-        </svg>
-        <p>Project</p>
-      </button>
-
       <!-- NAV TOGGLE -->
 
       <button
@@ -77,7 +47,7 @@
       <nav
         id="navbar"
         data-label="nav-container"
-        class="absolute overflow-hidden bg-gray-100 shadow-sm text-gray-700 h-full w-72 px-6 py-6 nav-hidden duration-500 2xl:static 2xl:translate-x-0"
+        class="absolute flex flex-col gap-2 overflow-hidden bg-gray-100 shadow-sm text-gray-700 h-full w-72 px-6 py-6 nav-hidden duration-500 2xl:static 2xl:translate-x-0"
       >
         <ul
           aria-label="navbar"
@@ -85,36 +55,52 @@
           class="flex flex-col gap-4 text-sm font-light justify-center lg:justify-start"
           data-label="nav-list"
         >
-          <li class="sidebar-item">
+          <li class="sidebar-item" data-label="filter" data-filter="All">
             <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="today-filter">
+              <svg class="sidebar-svg">
                 <use href="./assets/sprite.svg#icon-today"></use>
               </svg>
-              <p>Due Today</p>
+              <p>All</p>
             </a>
           </li>
-          <li class="sidebar-item">
+          <li class="sidebar-item" data-label="filter">
             <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="upcoming-filter">
+              <svg class="sidebar-svg">
+                <use href="./assets/sprite.svg#icon-today"></use>
+              </svg>
+              <p>Today</p>
+            </a>
+          </li>
+          <li class="sidebar-item" data-label="filter">
+            <a href="#" class="sidebar-link">
+              <svg class="sidebar-svg">
                 <use href="./assets/sprite.svg#icon-date"></use>
               </svg>
               <p>Upcoming</p>
             </a>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg" data-label="project-list-toggle">
+          <li class="rounded-md bg-blue-500 text-slate-50 overflow-hidden">
+            <span class="flex gap-2 items-center p-3">
+              <svg class="sidebar-svg">
                 <use href="./assets/sprite.svg#icon-project"></use>
               </svg>
-              <p>Projects</p>
-            </a>
+              <p>Projects</p></span
+            >
+
             <ul
               id="subnav"
               data-label="sub-nav"
-              class="flex flex-col pt-2"
+              class="flex flex-col pt-2 bg-none"
             ></ul>
           </li>
         </ul>
+        <button
+          data-label="add-project-btn"
+          aria-label="add project button"
+          class="flex items-center justify-center gap-1 py-3 px-2 w-full border green-btn bg-gray-50 text-gray-600 text-xs font-bold uppercase rounded-md duration-200"
+        >
+          <p>Add Project</p>
+        </button>
       </nav>
 
       <!-- TASKS CONTAINER -->
@@ -122,12 +108,18 @@
       <div
         class="container flex flex-col py-6 px-6 items-center mx-auto max-w-6xl"
       >
-        <h2
-          class="font-bold text-xl border-b border-gray-400 w-full pb-8 mb-4"
-          data-label="task-list-title"
+        <div
+          class="flex justify-between items-center border-b border-gray-400 w-full pb-4 mb-4"
         >
-          Tasks
-        </h2>
+          <h2 class="font-bold text-xl" data-label="task-list-title">Tasks</h2>
+          <button
+            data-label="add-task-btn"
+            aria-label="add task button"
+            class="flex items-center justify-center gap-1 py-3 px-5 border border-zinc-700 text-zinc-700 bg-gray-50 hover:bg-emerald-600 hover:border-emerald-600 hover:text-gray-50 text-xs font-bold uppercase rounded-md duration-200"
+          >
+            <p>Add Task</p>
+          </button>
+        </div>
         <div class="container max-w-6xl" id="todos">
           <!-- TASK LIST -->
 

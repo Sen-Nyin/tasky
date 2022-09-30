@@ -11,6 +11,10 @@ export default class View {
     this.burgerBtn = this.findEle('[data-label="toggle-navigation"]');
     this.projectList = this.findEle('[data-label="sub-nav"]');
 
+    // buttons
+    this.newProjectBtn = this.findEle('[data-label="add-project-btn"]');
+    this.newTaskBtn = this.findEle('[data-label="add-task-btn"]');
+
     // ########## [ TASK LIST]
     this.labelTaskListHeading = this.findEle('[data-label="task-list-title"]');
     this.taskList = this.findEle('[data-label="task-list"]');
@@ -294,22 +298,14 @@ export default class View {
       }
     });
   }
-  eventNew() {
-    this.header.addEventListener('click', (e) => {
-      e.preventDefault();
-      const datalabel = e.target.closest('button')?.dataset.label;
-
-      if (datalabel) {
-        const type =
-          datalabel === 'new-task-header'
-            ? 'task'
-            : datalabel === 'new-project-header'
-            ? 'project'
-            : null;
-        if (type) {
-          this.buildModal(type);
-        }
-      }
+  eventNewTask() {
+    this.newTaskBtn.addEventListener('click', (e) => {
+      this.buildModal('task');
+    });
+  }
+  eventNewProject() {
+    this.newProjectBtn.addEventListener('click', (e) => {
+      this.buildModal('project');
     });
   }
   eventUpdateLists(handler) {
@@ -322,7 +318,6 @@ export default class View {
       } else if (type === 'project') {
         if (this._projectDetails) {
           handler(this._projectDetails, type);
-          // this.displayProjects();
         }
       } else if (type === 'edit') {
         if (this._taskDetails) {
@@ -366,7 +361,6 @@ export default class View {
       if (button?.dataset.label === 'delete-button') {
         const id = button.closest('li').dataset.projectid;
         handler(Number(id));
-        // this.displayProjects();
       }
     });
   }

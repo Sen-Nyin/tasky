@@ -26,10 +26,10 @@ class Controller {
     this.onTaskChange(this.model.tasks);
     this.model.eventOnProjectChange(this.onProjectChange);
     this.onProjectChange(this.model.projects);
-
     this.view.eventToggleNav();
     this.view.eventCloseModal();
-    this.view.eventNew();
+    this.view.eventNewProject();
+    this.view.eventNewTask();
   }
 
   onTaskChange = (tasks) => this.view.displayTasks(tasks);

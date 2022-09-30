@@ -8,8 +8,11 @@
   @apply whitespace-nowrap absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden border-none;
   clip: rect(0, 0, 0, 0);
 }
+.sidebar-item {
+  @apply rounded-md bg-blue-100 hover:bg-blue-500 hover:text-slate-50 hover:cursor-pointer duration-300;
+}
 .sidebar-link {
-  @apply flex gap-2 items-center p-3 rounded-md bg-blue-100 hover:bg-blue-500 hover:text-slate-50 hover:cursor-pointer duration-300;
+  @apply flex gap-2 items-center p-3;
 }
 .sidebar-svg {
   @apply w-5 h-5 fill-current;
@@ -47,6 +50,9 @@
 .yellow-btn {
   @apply text-zinc-700 bg-amber-400 hover:bg-amber-500;
 }
+.green-btn {
+  @apply text-white bg-emerald-500 hover:bg-emerald-600;
+}
 .tasklist-button-wrapper {
   @apply col-start-3 row-start-1 flex gap-2 justify-end;
 }
@@ -63,7 +69,7 @@
   @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
 }
 .project-item {
-  @apply flex justify-between items-center p-3 rounded-lg hover:shadow-[inset_250px_0_0_0_rgba(0,0,0,0.03)] hover:cursor-pointer duration-500;
+  @apply flex justify-between items-center p-3 hover:shadow-[inset_250px_0_0_0_rgba(219,234,254)] hover:text-zinc-700 hover:cursor-pointer duration-500;
 }
 .high-priority {
   @apply border-l-8 border-l-red-400;
