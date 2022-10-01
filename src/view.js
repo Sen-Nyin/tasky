@@ -9,15 +9,20 @@ export default class View {
     this.navContainer = this.findEle('[data-label="nav-container"]');
     this.sidebar = this.findEle('[data-label="nav-list"]');
     this.burgerBtn = this.findEle('[data-label="toggle-navigation"]');
-    this.projectList = this.findEle('[data-label="sub-nav"]');
 
-    // buttons
+    // ########## [ NEW BUTTONS ]
     this.newProjectBtn = this.findEle('[data-label="add-project-btn"]');
     this.newTaskBtn = this.findEle('[data-label="add-task-btn"]');
 
-    // ########## [ TASK LIST]
+    // ########## [ TASK LIST ]
     this.labelTaskListHeading = this.findEle('[data-label="task-list-title"]');
     this.taskList = this.findEle('[data-label="task-list"]');
+    this.filterBtn = this.findEle('[data-label="filter-button"]');
+    this.filterList = this.findEle('[data-label="filter-list"]');
+
+    // ########## [ PROJECT LIST ]
+    this.projectBtn = this.findEle('[data-label="projects-button"]');
+    this.projectList = this.findEle('[data-label="project-list"]');
 
     // ##########[ MODAL ]
     this.modalTitle = this.findEle('[data-label="modal-title"]');
@@ -84,11 +89,18 @@ export default class View {
   }
 
   // ####################[ DOM TOGGLES ] ##################
-  eventToggleNav() {
-    this.burgerBtn.addEventListener('click', (e) => {
-      this.navContainer.classList.toggle('nav-hidden');
-    });
-  }
+  eventToggleNav = () =>
+    this.burgerBtn.addEventListener('click', this.toggleNav);
+
+  eventToggleFilter = () =>
+    this.filterBtn.addEventListener('click', this.toggleFilter);
+
+  eventToggleProjects = () =>
+    this.projectBtn.addEventListener('click', this.toggleProjects);
+
+  toggleNav = () => this.navContainer.classList.toggle('nav-hidden');
+  toggleFilter = () => this.filterList.classList.toggle('hidden');
+  toggleProjects = () => this.projectList.classList.toggle('hidden');
 
   // ####################[ DOM CLEARING ] ##################
   clear = (target) => {
@@ -105,10 +117,10 @@ export default class View {
       this.taskList.append(message);
     } else {
       tasks.forEach((task) => {
-        const alarmIcon = this.createSVG('alarm', 'tasklist-icon');
-        const labelIcon = this.createSVG('label', 'tasklist-icon');
-        const deleteIcon = this.createSVG('delete', 'tasklist-button-icon');
-        const editIcon = this.createSVG('edit', 'tasklist-button-icon');
+        const alarmIcon = this.createSVG('alarm', 'icon-4');
+        const labelIcon = this.createSVG('label', 'icon-4');
+        const deleteIcon = this.createSVG('delete', 'icon-5');
+        const editIcon = this.createSVG('edit', 'icon-5');
 
         const taskElement = this.createEle('li', 'tasklist-item');
         taskElement.dataset.taskid = task.id;
@@ -470,7 +482,15 @@ export default class View {
     });
   }
   eventFilter(handler) {
-    this.sidebar.addEventListener('click', (e) => {
+    this.filterList.addEventListener('click', (e) => {
+      if (e.target.closest('li')?.dataset.label === 'filter') {
+        const filter = e.target.closest('li').dataset.filter;
+        this.labelTaskListHeading.textContent = this.capitalise(filter);
+        handler(filter);
+        this.toggleFilter();
+      }
+    });
+    this.projectList.addEventListener('click', (e) => {
       if (e.target.closest('li')?.dataset.label === 'filter') {
         const filter = e.target.closest('li').dataset.filter;
         this.labelTaskListHeading.textContent = this.capitalise(filter);

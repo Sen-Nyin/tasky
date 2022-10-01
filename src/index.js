@@ -27,10 +27,13 @@ class Controller {
     this.model.eventOnProjectChange(this.onProjectChange);
     this.onProjectChange(this.model.projects);
     this.view.eventToggleNav();
+    this.view.eventToggleFilter();
     this.view.eventCloseModal();
     this.view.eventNewProject();
     this.view.eventNewTask();
     this.view.eventFilter(this.handleFilterTasks);
+    this.view.eventToggleProjects();
+
     this.filter = 'all';
   }
 

@@ -47,90 +47,8 @@
       <nav
         id="navbar"
         data-label="nav-container"
-        class="absolute overflow-auto flex flex-col flex-shrink-0 gap-1 bg-gray-100 shadow-sm text-gray-700 h-full w-72 py-2 px-6 lg:p-6 nav-hidden duration-500 lg:gap-2 lg:static lg:translate-x-0"
+        class="absolute overflow-auto flex flex-col flex-shrink-0 gap-1 bg-gray-100 shadow-sm text-gray-700 h-full w-72 py-2 px-6 lg:p-6 nav-hidden duration-500 lg:gap-2 lg:static lg:translate-x-0 z-20"
       >
-        <ul
-          aria-label="navbar"
-          role="list"
-          class="flex flex-col gap-2 text-sm font-light justify-center lg:justify-start 2xl:gap-4 duration-200"
-          data-label="nav-list"
-        >
-          <li class="sidebar-item" data-label="filter" data-filter="all">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-all"></use>
-              </svg>
-              <p>All</p>
-            </a>
-          </li>
-          <li class="sidebar-item" data-label="filter" data-filter="today">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-today"></use>
-              </svg>
-              <p>Today</p>
-            </a>
-          </li>
-          <li class="sidebar-item" data-label="filter" data-filter="upcoming">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-date"></use>
-              </svg>
-              <p>Upcoming</p>
-            </a>
-          </li>
-
-          <li class="sidebar-item" data-label="filter" data-filter="overdue">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-late"></use>
-              </svg>
-              <p>Overdue</p>
-            </a>
-          </li>
-
-          <li class="sidebar-item" data-label="filter" data-filter="High">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-high"></use>
-              </svg>
-              <p>High Priority</p>
-            </a>
-          </li>
-
-          <li class="sidebar-item" data-label="filter" data-filter="Medium">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-medium"></use>
-              </svg>
-              <p>Medium Priority</p>
-            </a>
-          </li>
-
-          <li class="sidebar-item" data-label="filter" data-filter="Low">
-            <a href="#" class="sidebar-link">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-low"></use>
-              </svg>
-              <p>Low Priority</p>
-            </a>
-          </li>
-
-          <li class="rounded-md bg-blue-500 text-slate-50 overflow-hidden">
-            <span class="flex gap-2 items-center p-3">
-              <svg class="sidebar-svg">
-                <use href="./assets/sprite.svg#icon-project"></use>
-              </svg>
-              <p>Projects</p></span
-            >
-
-            <ul
-              id="subnav"
-              data-label="sub-nav"
-              class="flex flex-col pt-2 bg-none"
-            ></ul>
-          </li>
-        </ul>
         <button
           data-label="add-project-btn"
           aria-label="add project button"
@@ -138,6 +56,22 @@
         >
           <p>Add Project</p>
         </button>
+
+        <button
+          aria-label="toggle project list"
+          data-label="projects-button"
+          class="rounded-md bg-blue-500 text-slate-50 text-sm flex gap-2 items-center p-3 cursor-pointer hover:bg-blue-600 duration-300"
+        >
+          <svg class="icon-4">
+            <use href="./assets/sprite.svg#icon-project"></use>
+          </svg>
+          <p>Projects</p>
+        </button>
+        <ul
+          id="project-list"
+          data-label="project-list"
+          class="hidden flex flex-col pt-2 bg-none"
+        ></ul>
       </nav>
 
       <!-- TASKS CONTAINER -->
@@ -148,7 +82,85 @@
         <div
           class="flex justify-between items-center border-b border-gray-400 w-full pb-4 mb-4"
         >
-          <h2 class="font-bold text-xl" data-label="task-list-title">All</h2>
+          <div class="relative">
+            <button
+              aria-label="list filter"
+              data-label="filter-button"
+              class="flex items-center cursor-pointer hover:scale-125 duration-200"
+            >
+              <svg class="sidebar-svg mr-4">
+                <use href="./assets/sprite.svg#icon-filter"></use>
+              </svg>
+            </button>
+            <ul
+              data-label="filter-list"
+              class="absolute hidden top-8 w-52 flex flex-col gap-2 bg-white rounded-md shadow-lg p-4"
+            >
+              <li data-label="filter" data-filter="all">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-all"></use>
+                  </svg>
+                  <p>All</p>
+                </a>
+              </li>
+              <li data-label="filter" data-filter="today">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-today"></use>
+                  </svg>
+                  <p>Today</p>
+                </a>
+              </li>
+              <li data-label="filter" data-filter="upcoming">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-date"></use>
+                  </svg>
+                  <p>Upcoming</p>
+                </a>
+              </li>
+
+              <li data-label="filter" data-filter="overdue">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-late"></use>
+                  </svg>
+                  <p>Overdue</p>
+                </a>
+              </li>
+
+              <li data-label="filter" data-filter="High">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-high"></use>
+                  </svg>
+                  <p>High Priority</p>
+                </a>
+              </li>
+
+              <li data-label="filter" data-filter="Medium">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-medium"></use>
+                  </svg>
+                  <p>Medium Priority</p>
+                </a>
+              </li>
+
+              <li data-label="filter" data-filter="Low">
+                <a href="#" class="filter-item">
+                  <svg class="sidebar-svg">
+                    <use href="./assets/sprite.svg#icon-low"></use>
+                  </svg>
+                  <p>Low Priority</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <h2 class="font-bold text-xl flex-1" data-label="task-list-title">
+            All
+          </h2>
           <button
             data-label="add-task-btn"
             aria-label="add task button"

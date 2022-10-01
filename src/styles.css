@@ -14,9 +14,7 @@
 .sidebar-link {
   @apply flex gap-2 items-center p-2 2xl:p-3;
 }
-.sidebar-svg {
-  @apply w-5 h-5 fill-current;
-}
+
 .tasklist-item {
   @apply grid grid-cols-[max-content_1fr_max-content] gap-2 border-b font-light text-xs rounded-md p-4 hover:shadow-[inset_0_-90px_0_0_rgba(0,0,0,0.03)] duration-500;
 }
@@ -34,12 +32,6 @@
 }
 .tasklist-project {
   @apply col-start-3 row-start-2 flex gap-2 items-center uppercase;
-}
-.tasklist-icon {
-  @apply fill-current w-4 h-4;
-}
-.tasklist-button-icon {
-  @apply w-5 h-5 fill-current;
 }
 .tasklist-btn {
   @apply p-1 rounded-full  hover:scale-105 hover:shadow-md duration-300;
@@ -69,7 +61,7 @@
   @apply border px-4 py-2 rounded-md text-gray-50 duration-200;
 }
 .project-item {
-  @apply flex justify-between items-center p-2 2xl:p-3 hover:shadow-[inset_250px_0_0_0_rgba(219,234,254)] hover:text-zinc-700 hover:cursor-pointer duration-500;
+  @apply flex justify-between text-sm items-center p-2 2xl:p-3 rounded-md hover:shadow-[inset_250px_0_0_0_rgba(219,234,254)] hover:text-zinc-700 hover:cursor-pointer duration-500;
 }
 .high-priority {
   @apply border-l-8 border-l-red-400;
@@ -85,6 +77,19 @@
 }
 .radio-priority {
   @apply w-0 h-0;
+}
+.filter-item {
+  @apply flex items-center gap-2 p-1 text-zinc-700  rounded-md hover:bg-blue-200 duration-300;
+}
+.sidebar-svg {
+  @apply w-4 h-4 fill-current;
+}
+
+.icon-4 {
+  @apply w-4 h-4 fill-current;
+}
+.icon-5 {
+  @apply w-5 h-5 fill-current;
 }
 /* ######################### [END] ############################# */
 
