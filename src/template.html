@@ -59,14 +59,22 @@
 
         <button
           aria-label="toggle project list"
+          aria-expanded="false"
           data-label="projects-button"
-          class="rounded-md bg-blue-500 text-slate-50 text-sm flex gap-2 items-center p-3 cursor-pointer hover:bg-blue-600 duration-300"
+          class="rounded-md bg-blue-500 text-slate-50 text-sm flex gap-2 justify-between items-center p-3 cursor-pointer hover:bg-blue-600 duration-300"
         >
           <svg class="icon-4">
             <use href="./assets/sprite.svg#icon-project"></use>
           </svg>
-          <p>Projects</p>
+          <p class="flex-1 text-left">Projects</p>
+          <svg class="icon-4">
+            <use
+              data-label="expand-icon"
+              href="./assets/sprite.svg#icon-expand"
+            ></use>
+          </svg>
         </button>
+
         <ul
           id="project-list"
           data-label="project-list"

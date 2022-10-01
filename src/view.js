@@ -100,7 +100,18 @@ export default class View {
 
   toggleNav = () => this.navContainer.classList.toggle('nav-hidden');
   toggleFilter = () => this.filterList.classList.toggle('hidden');
-  toggleProjects = () => this.projectList.classList.toggle('hidden');
+  toggleProjects = () => {
+    const expandedIcon = this.findEle('[data-label="expand-icon"]');
+    if (this.projectList.hasAttribute('data-visible')) {
+      this.projectBtn.setAttribute('aria-expanded', false);
+      expandedIcon.setAttribute('href', `${sprite}#icon-expand`);
+    } else {
+      this.projectBtn.setAttribute('aria-expanded', true);
+      expandedIcon.setAttribute('href', `${sprite}#icon-shrink`);
+    }
+    this.projectList.classList.toggle('hidden');
+    this.projectList.toggleAttribute('data-visible');
+  };
 
   // ####################[ DOM CLEARING ] ##################
   clear = (target) => {
