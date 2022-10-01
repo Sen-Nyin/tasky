@@ -80,9 +80,18 @@
 .low-priority {
   @apply border-l-8 border-l-emerald-400;
 }
-
+.radio-label {
+  @apply max-w-max rounded-md p-2;
+}
+.radio-priority {
+  @apply w-0 h-0;
+}
 /* ######################### [END] ############################# */
 
-label:has(input[type='radio']:not(:checked)) {
+/* label:has(input[type='radio']:not(:checked)) {
+  opacity: 0.3;
+} */
+
+input[type='radio']:not(:checked) + label {
   opacity: 0.3;
 }

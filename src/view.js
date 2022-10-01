@@ -35,7 +35,7 @@ export default class View {
     let selectedPriority;
     priorities.forEach((priority) => {
       if (priority.checked) {
-        selectedPriority = priority.closest('label').textContent;
+        selectedPriority = priority.value;
       }
     });
     if (title.value && date.value && selectedPriority && project.value) {
@@ -278,52 +278,45 @@ export default class View {
       );
       const priorityLabel = this.createEle('p', 'form-label');
       priorityLabel.textContent = 'Priority';
-      const labelHighPrio = this.createEle(
-        'label',
-        'max-w-max',
-        'rounded-md',
-        'p-2',
-        'red-btn'
-      );
-      labelHighPrio.for = 'priority';
+      const labelHighPrio = this.createEle('label', 'radio-label', 'red-btn');
+      labelHighPrio.setAttribute('for', 'highPrio');
       labelHighPrio.textContent = 'High';
-      const radioHighPrio = this.createEle('input', 'w-0', 'h-0');
+      const radioHighPrio = this.createEle('input', 'radio-priority');
+      radioHighPrio.id = 'highPrio';
       radioHighPrio.type = 'radio';
       radioHighPrio.name = 'priority';
       radioHighPrio.value = 'High';
-      labelHighPrio.append(radioHighPrio);
 
       const labelMediumPrio = this.createEle(
         'label',
-        'max-w-max',
-        'rounded-md',
-        'p-2',
+        'radio-label',
         'yellow-btn'
       );
-      labelMediumPrio.for = 'priority';
+      labelMediumPrio.setAttribute('for', 'mediumPrio');
       labelMediumPrio.textContent = 'Medium';
-      const radioMediumPrio = this.createEle('input', 'w-0', 'h-0');
+      const radioMediumPrio = this.createEle('input', 'radio-priority');
+      radioMediumPrio.id = 'mediumPrio';
       radioMediumPrio.type = 'radio';
       radioMediumPrio.name = 'priority';
       radioMediumPrio.value = 'Medium';
-      labelMediumPrio.append(radioMediumPrio);
 
-      const labelLowPrio = this.createEle(
-        'label',
-        'max-w-max',
-        'rounded-md',
-        'p-2',
-        'green-btn'
-      );
-      labelLowPrio.for = 'priority';
+      const labelLowPrio = this.createEle('label', 'radio-label', 'green-btn');
+      labelLowPrio.setAttribute('for', 'lowPrio');
       labelLowPrio.textContent = 'Low';
-      const radioLowPrio = this.createEle('input', 'w-0', 'h-0');
+      const radioLowPrio = this.createEle('input', 'radio-priority');
+      radioLowPrio.id = 'lowPrio';
       radioLowPrio.type = 'radio';
       radioLowPrio.name = 'priority';
       radioLowPrio.value = 'Low';
-      labelLowPrio.append(radioLowPrio);
 
-      priorityBox.append(labelHighPrio, labelMediumPrio, labelLowPrio);
+      priorityBox.append(
+        radioHighPrio,
+        labelHighPrio,
+        radioMediumPrio,
+        labelMediumPrio,
+        radioLowPrio,
+        labelLowPrio
+      );
 
       if (type === 'edit') {
         const [data] = dataArr;
